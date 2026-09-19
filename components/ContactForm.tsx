@@ -23,13 +23,10 @@ export function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      const json = (await res.json()) as { ok?: boolean; message?: string; mailto?: string };
+      const json = (await res.json()) as { ok?: boolean; message?: string };
       if (!res.ok || !json.ok) {
         setStatus({ kind: "error", note: json.message || "Something went wrong. Try again." });
         return;
-      }
-      if (json.mailto) {
-        window.location.href = json.mailto;
       }
       form.reset();
       setStatus({
@@ -51,6 +48,11 @@ export function ContactForm() {
 
       <label htmlFor="email">Email</label>
       <input id="email" name="email" type="email" autoComplete="email" required />
+
+      <div className="hp" aria-hidden="true" hidden>
+        <label htmlFor="company_site">Website</label>
+        <input id="company_site" name="company_site" tabIndex={-1} autoComplete="off" />
+      </div>
 
       <label htmlFor="note">What’s eating the week</label>
       <textarea id="note" name="note" required />
