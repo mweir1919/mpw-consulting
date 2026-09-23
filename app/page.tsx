@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { WeekBlotter } from "@/components/WeekBlotter";
 import { BookCall } from "@/components/BookCall";
+
+export const metadata: Metadata = {
+  title: { absolute: "MPW Consulting" },
+  description:
+    "MPW Consulting helps owners and leaders learn about and implement AI toward their objectives — faster, with fewer hours, or in ways that weren’t possible before.",
+};
 
 export default function HomePage() {
   return (
@@ -8,10 +15,12 @@ export default function HomePage() {
       <section className="hero">
         <div className="wrap hero-grid">
           <div className="hero-copy">
-            <h1>AI that runs in the business. Not a tool you tried once.</h1>
+            <h1>Your objectives stay the same. AI is how you get there.</h1>
             <p className="hero-lead">
-              Some of it is work you’re already doing. Some of it you couldn’t staff — or couldn’t
-              do at all. We build it, then hand it back.
+              We help owners and leaders learn about and implement AI so work happens faster, with
+              fewer hours, or in a way that wasn’t possible before — in service of the goal you
+              already have. Sometimes that’s growth work. Sometimes that’s hours back so you can do
+              the growth work yourself. The filter is your north star, not a product menu.
             </p>
             <div className="btn-row">
               <BookCall className="btn btn-gold" />
@@ -26,59 +35,73 @@ export default function HomePage() {
 
       <section className="band band-lift">
         <div className="wrap">
-          <h2>What a first sprint can stand up</h2>
-          <ul className="ledger">
+          <h2>What we help you move</h2>
+          <ul className="ledger ledger-five">
             <li>
-              <strong>Missed calls</strong>
-              <span>Someone answers. The job gets a time on the books.</span>
+              <strong>Growth</strong>
+              <span>Revenue, bookings, customers, retention — the number you already care about.</span>
             </li>
             <li>
-              <strong>Empty chairs</strong>
-              <span>A reminder goes out. The hour isn’t a write-off.</span>
+              <strong>Capacity</strong>
+              <span>Hours back to you or the team so the real work gets done.</span>
             </li>
             <li>
-              <strong>After hours</strong>
-              <span>Coverage you couldn’t hire for — the phone still works when you don’t.</span>
+              <strong>Speed</strong>
+              <span>Cycle time and decisions that are too slow for the goal.</span>
             </li>
             <li>
-              <strong>The site</strong>
-              <span>People can book without waiting for you to call them back.</span>
+              <strong>Unlock</strong>
+              <span>Something the business couldn’t do before — and now needs.</span>
+            </li>
+            <li>
+              <strong>Quality</strong>
+              <span>Fewer errors, misses, and brittle steps that block the objective.</span>
             </li>
           </ul>
           <p className="ledger-note">
-            Owners and operators of small and mid-size businesses. Not a vertical. A first sprint is
-            named and built in weeks — whatever would actually change how the place runs.
+            Paths vary — accelerate the work, free capacity, or unlock something new. What we build
+            is whatever serves the objective we name together. Not a menu of bots.
           </p>
         </div>
       </section>
 
       <section className="finale">
         <div className="wrap">
-          <h2>How an engagement runs</h2>
+          <h2>How the work runs</h2>
           <ol className="path">
             <li>
               <h3>Diagnose</h3>
-              <p>Sit with how the place actually runs. Name what to build — and what to leave.</p>
+              <p>
+                Your north star. The objective for this engagement. What you’d trust as a measure —
+                or we keep fees scoped until that’s clear.
+              </p>
             </li>
             <li>
               <h3>Build</h3>
-              <p>A short sprint. The system standing up inside the tools the business already lives in.</p>
+              <p>
+                A short, scoped project inside the tools you already use. Efficient scope. You learn
+                as it stands up.
+              </p>
             </li>
             <li>
               <h3>Handoff</h3>
-              <p>You keep it. If it isn’t in the operation, it isn’t done.</p>
+              <p>
+                You keep it. If it isn’t in the operation, it isn’t done. Ongoing work is a separate
+                conversation — the door stays open.
+              </p>
             </li>
           </ol>
           <p className="path-link">
-            <Link href="/approach">The full approach</Link>
+            <Link href="/approach">How an engagement runs</Link>
           </p>
           <div className="close-split">
             <blockquote className="pull">
-              We implement. We don’t sell a tool tour or a deck. The conversation is the proof.
+              We implement. We don’t sell a tool tour or a deck. Learning is part of the path; a
+              workshop alone is not the product.
             </blockquote>
             <div>
-              <h2>Tell us what should be standing up.</h2>
-              <p>A short call, or a note. Same two doors.</p>
+              <h2>Tell us what you’re trying to move.</h2>
+              <p>A short diagnostic, or a note. Same two doors.</p>
               <div className="btn-row">
                 <BookCall className="btn btn-gold" />
                 <Link className="btn btn-ghost" href="/contact">

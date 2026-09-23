@@ -1,30 +1,30 @@
 import type { CSSProperties } from "react";
 
-export function WeekBlotter() {
-  const rows = [
-    { day: "Mon", task: "Missed call, job went elsewhere" },
-    { day: "Tue", task: "They booked. Didn’t show." },
-    { day: "Wed", task: "Found you. Couldn’t book." },
-    { day: "Thu", task: "Review sitting unanswered" },
-    { day: "Fri", task: "Closed. Phone still ringing." },
-  ];
+const rows = [
+  { label: "Growth", line: "The number isn’t moving" },
+  { label: "Capacity", line: "The owner is still the system" },
+  { label: "Speed", line: "The decision arrives after it mattered" },
+  { label: "Unlock", line: "This couldn’t be staffed before" },
+  { label: "Quality", line: "The same miss keeps costing you" },
+];
 
+export function WeekBlotter() {
   return (
-    <aside className="blotter" aria-label="A week inside a small business">
-      <p className="blotter-title">Inside the business</p>
+    <aside className="blotter" aria-label="Toward the objective">
+      <p className="blotter-title">Toward the objective</p>
       <ol className="blotter-list">
         {rows.map((row, i) => (
           <li
             className="blotter-row"
-            key={row.day}
+            key={row.label}
             style={{ "--i": i } as CSSProperties}
           >
-            <span className="blotter-day">{row.day}</span>
-            <span className="blotter-task">{row.task}</span>
+            <span className="blotter-day">{row.label}</span>
+            <span className="blotter-task">{row.line}</span>
           </li>
         ))}
       </ol>
-      <p className="blotter-foot">That’s the brief.</p>
+      <p className="blotter-foot">We start there.</p>
     </aside>
   );
 }

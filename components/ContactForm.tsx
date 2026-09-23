@@ -54,7 +54,7 @@ export function ContactForm() {
         <input id="company_site" name="company_site" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <label htmlFor="note">What’s eating the week</label>
+      <label htmlFor="note">What you’re trying to move</label>
       <textarea id="note" name="note" required />
 
       <button className="btn btn-navy" type="submit" disabled={status.kind === "sending"}>

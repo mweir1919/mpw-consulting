@@ -163,14 +163,22 @@ h3 { font-size: clamp(1.2rem, 1rem + 0.7vw, 1.55rem); margin-bottom: 0.45rem; }
   outline-color: var(--gold);
 }
 
-.btn-gold { background: var(--gold); color: var(--navy); }
+.btn-gold {
+  background: var(--gold);
+  color: var(--navy);
+  border-color: var(--gold-deep);
+}
 .btn-gold:hover { background: var(--gold-deep); color: var(--navy); }
 .btn-ghost {
   background: transparent;
-  color: var(--gold);
-  border-color: var(--gold-line);
+  color: rgba(243, 244, 241, 0.92);
+  border-color: rgba(196, 163, 90, 0.65);
 }
-.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+.btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(196, 163, 90, 0.08);
+}
 .btn-navy { background: var(--navy); color: var(--paper); }
 .btn-navy:hover { background: var(--navy-deep); color: var(--paper); }
 .btn:disabled { opacity: 0.6; cursor: not-allowed; }
@@ -223,7 +231,7 @@ h3 { font-size: clamp(1.2rem, 1rem + 0.7vw, 1.55rem); margin-bottom: 0.45rem; }
   min-width: 0;
   animation: rise 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-.hero-copy h1 { max-width: 16ch; }
+.hero-copy h1 { max-width: 18ch; }
 .hero-lead {
   margin-top: 1.15rem;
   max-width: min(var(--copy), 100%);
@@ -255,7 +263,7 @@ h3 { font-size: clamp(1.2rem, 1rem + 0.7vw, 1.55rem); margin-bottom: 0.45rem; }
 .blotter-list { list-style: none; margin-top: 0.75rem; }
 .blotter-row {
   display: grid;
-  grid-template-columns: 2.8rem minmax(0, 1fr);
+  grid-template-columns: 5.5rem minmax(0, 1fr);
   gap: 0.65rem;
   align-items: baseline;
   padding: 0.68rem 0;
@@ -263,8 +271,8 @@ h3 { font-size: clamp(1.2rem, 1rem + 0.7vw, 1.55rem); margin-bottom: 0.45rem; }
   position: relative;
 }
 .blotter-day {
-  font-size: 0.74rem;
-  letter-spacing: 0.1em;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--gold);
 }
@@ -272,7 +280,7 @@ h3 { font-size: clamp(1.2rem, 1rem + 0.7vw, 1.55rem); margin-bottom: 0.45rem; }
 .blotter-row::after {
   content: "";
   position: absolute;
-  left: 2.8rem;
+  left: 5.5rem;
   right: 0;
   top: 50%;
   height: 1px;
@@ -314,6 +322,10 @@ h3 { font-size: clamp(1.2rem, 1rem + 0.7vw, 1.55rem); margin-bottom: 0.45rem; }
   column-gap: clamp(1.25rem, 4vw, 2.5rem);
   margin-top: 1.5rem;
   border-top: 1px solid var(--ink);
+}
+.ledger-five li:last-child {
+  grid-column: 1 / -1;
+  max-width: min(var(--copy), 100%);
 }
 .ledger li {
   display: grid;
@@ -413,11 +425,11 @@ h3 { font-size: clamp(1.2rem, 1rem + 0.7vw, 1.55rem); margin-bottom: 0.45rem; }
 .page-head .path { margin-top: 2.25rem; }
 
 .prose { padding-block: clamp(2.75rem, 6vw, 4.5rem) 4.5rem; }
-.prose h2 { margin-top: 2.5rem; max-width: min(var(--copy), 100%); }
+.prose h2 { margin-top: 2.75rem; max-width: min(var(--copy), 100%); }
 .prose h2:first-child { margin-top: 0; }
 .prose p { max-width: min(var(--copy), 100%); }
-.prose p + p { margin-top: 1rem; }
-.prose .lede { margin-bottom: 1.1rem; }
+.prose p + p { margin-top: 1.15rem; }
+.prose .lede { margin-bottom: 1.25rem; }
 
 .contact-grid {
   display: grid;

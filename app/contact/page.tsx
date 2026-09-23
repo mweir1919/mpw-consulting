@@ -3,7 +3,10 @@ import { ContactForm } from "@/components/ContactForm";
 import { BookCall } from "@/components/BookCall";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Contact" };
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Book a short diagnostic, or send a note. Two doors.",
+};
 
 export default function ContactPage() {
   return (
@@ -11,7 +14,7 @@ export default function ContactPage() {
       <header className="page-head">
         <div className="wrap">
           <h1>Two doors. A call, or a note.</h1>
-          <p>Tell us the business. What’s slipping — and what you’ve never been able to cover.</p>
+          <p>Tell us the business. What you’re trying to move — and what’s in the way.</p>
         </div>
       </header>
       <section className="wrap prose">
@@ -19,8 +22,8 @@ export default function ContactPage() {
           <div>
             <h2>Book a call</h2>
             <p>
-              A short diagnostic. No deck. How the place runs, what should be standing up, and
-              whether a sprint is the right shape.
+              A short diagnostic. No deck. Your objective, whether AI is the right mechanism, and
+              whether a scoped engagement fits.
             </p>
             <p className="btn-row">
               <BookCall className="btn btn-navy" />
