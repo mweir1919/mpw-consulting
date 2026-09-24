@@ -317,7 +317,9 @@ h3 { font-size: clamp(1.2rem, 1rem + 0.7vw, 1.55rem); margin-bottom: 0.45rem; }
 
 .move {
   position: relative;
-  margin-top: 2.35rem;
+  margin-top: 1.2rem;
+  padding-top: 1.7rem;
+  border-top: 1px solid var(--ink);
 }
 .move-wires {
   position: absolute;
@@ -395,6 +397,7 @@ h3 { font-size: clamp(1.2rem, 1rem + 0.7vw, 1.55rem); margin-bottom: 0.45rem; }
 }
 .move-rail strong {
   grid-row: 1;
+  margin-left: 0.45rem;
   font-family: var(--font-display);
   font-weight: 400;
   font-size: var(--move-title);
@@ -403,6 +406,8 @@ h3 { font-size: clamp(1.2rem, 1rem + 0.7vw, 1.55rem); margin-bottom: 0.45rem; }
 }
 .move-say {
   grid-column: 3;
+  margin-left: 0.45rem;
+  padding-left: 0.14rem;
   color: var(--muted);
   font-size: 1.05rem;
   line-height: 1.4;
