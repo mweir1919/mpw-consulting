@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { WeekBlotter } from "@/components/WeekBlotter";
 import { BookCall } from "@/components/BookCall";
+import { MoveDiagram } from "@/components/MoveDiagram";
 
 export const metadata: Metadata = {
   title: { absolute: "MPW Consulting" },
@@ -35,31 +36,10 @@ export default function HomePage() {
       <section className="band band-lift">
         <div className="wrap">
           <h2>What we help you move</h2>
-          <ul className="ledger ledger-five">
-            <li>
-              <strong>Growth</strong>
-              <span>Revenue, bookings, customers, retention — the number you already care about.</span>
-            </li>
-            <li>
-              <strong>Capacity</strong>
-              <span>Hours back to you or the team so the real work gets done.</span>
-            </li>
-            <li>
-              <strong>Speed</strong>
-              <span>Cycle time and decisions that are too slow for the goal.</span>
-            </li>
-            <li>
-              <strong>Unlock</strong>
-              <span>Something the business couldn’t do before — and now needs.</span>
-            </li>
-            <li>
-              <strong>Quality</strong>
-              <span>Fewer errors, misses, and brittle steps that block the objective.</span>
-            </li>
-          </ul>
-          <p className="ledger-note">
-            Paths vary — accelerate the work, free capacity, or unlock something new. What we build
-            is whatever serves the objective we name together. Not a menu of bots.
+          <MoveDiagram />
+          <p className="move-note">
+            Paths vary — accelerate the work, free capacity, or unlock something new. We build
+            whatever serves the objective we commit to together.
           </p>
         </div>
       </section>
