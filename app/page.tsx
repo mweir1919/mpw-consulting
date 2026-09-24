@@ -50,16 +50,12 @@ export default function HomePage() {
           <ol className="path">
             <li>
               <h3>Diagnose</h3>
-              <p>
-                Your north star. The objective for this engagement. What you’d trust as a measure —
-                or we keep fees scoped until that’s clear.
-              </p>
+              <p>Your north star. The objective for this engagement.</p>
             </li>
             <li>
               <h3>Build</h3>
               <p>
-                A short, scoped project inside the tools you already use. Efficient scope. You learn
-                as it stands up.
+                A short project inside the tools you already use. You learn as it stands up.
               </p>
             </li>
             <li>
@@ -75,12 +71,12 @@ export default function HomePage() {
           </p>
           <div className="close-split">
             <blockquote className="pull">
-              We implement. We don’t sell a tool tour or a deck. Learning is part of the path; a
-              workshop alone is not the product.
+              We name the objective with you, build it into the work, and hand it back running.
+              Learning is part of that path.
             </blockquote>
             <div>
               <h2>Tell us what you’re trying to move.</h2>
-              <p>A short diagnostic, or a note. Same two doors.</p>
+              <p>Book a diagnostic call, or send us a note.</p>
               <div className="btn-row">
                 <BookCall className="btn btn-gold" />
                 <Link className="btn btn-ghost" href="/contact">
