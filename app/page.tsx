@@ -19,8 +19,7 @@ export default function HomePage() {
             <p className="hero-lead">
               We help owners and leaders learn about and implement AI so work happens faster, with
               fewer hours, or in a way that wasn’t possible before — in service of the goal you
-              already have. Sometimes that’s growth work. Sometimes that’s hours back so you can do
-              the growth work yourself. The filter is your north star, not a product menu.
+              already have.
             </p>
             <div className="btn-row">
               <BookCall className="btn btn-gold" />

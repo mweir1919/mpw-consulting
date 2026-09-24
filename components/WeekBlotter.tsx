@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 const rows = [
   { label: "Growth", line: "The number isn’t moving" },
   { label: "Capacity", line: "The owner is still the system" },
-  { label: "Speed", line: "The decision arrives after it mattered" },
+  { label: "Speed", line: "Decisions arrive too late" },
   { label: "Unlock", line: "This couldn’t be staffed before" },
   { label: "Quality", line: "The same miss keeps costing you" },
 ];
