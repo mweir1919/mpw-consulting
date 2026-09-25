@@ -8,9 +8,12 @@ type Body = {
   name?: string;
   business?: string;
   email?: string;
+  focus?: unknown;
   note?: string;
   company_site?: string;
 };
+
+const FOCUS = ["Growth", "Capacity", "Speed", "Unlock", "Quality"];
 
 const hits = new Map<string, number[]>();
 
@@ -53,6 +56,9 @@ export async function POST(req: NextRequest) {
   const business = clean(body.business);
   const email = clean(body.email);
   const note = clean(body.note);
+  const focus = Array.isArray(body.focus)
+    ? FOCUS.filter((f) => (body.focus as unknown[]).includes(f))
+    : [];
 
   if (!name || !business || !email || !note) {
     return NextResponse.json({ ok: false, message: "Please fill in every field." }, { status: 400 });
@@ -79,7 +85,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    await deliverContact({ name, business, email, note });
+    await deliverContact({ name, business, email, focus, note });
   } catch (err) {
     console.error("contact deliver failed", err instanceof Error ? err.message : err);
     return NextResponse.json(

@@ -9,6 +9,7 @@ type ContactNote = {
   name: string;
   business: string;
   email: string;
+  focus: string[];
   note: string;
 };
 
@@ -61,6 +62,7 @@ export function contactCopy(body: ContactNote) {
     `Name: ${body.name}`,
     `Business: ${body.business}`,
     `Email: ${body.email}`,
+    `Focus: ${body.focus.length ? body.focus.join(", ") : "—"}`,
     "",
     body.note,
   ].join("\n");

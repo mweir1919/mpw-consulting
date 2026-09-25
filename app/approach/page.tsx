@@ -1,88 +1,73 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { BookCall } from "@/components/BookCall";
+import { CloseBlock } from "@/components/CloseBlock";
+import { StageTabs, type Stage } from "@/components/StageTabs";
 
 export const metadata: Metadata = {
   title: "Approach",
   description:
-    "Diagnose, build, handoff. A named objective, a scoped build, you keep the system.",
+    "How an engagement runs. Name the objective, build a short project around how you already work, and hand it back running.",
 };
+
+const stages: Stage[] = [
+  {
+    id: "diagnose",
+    num: "01",
+    name: "Diagnose",
+    line: "Name the objective and what done looks like.",
+    heading: "Name the objective.",
+    body: [
+      "We start with where you’re trying to go — your north star — and name what this engagement has to move. Growth, capacity, speed, unlock, quality, or a mix of them.",
+      "If it isn’t specific enough to build, we say so before anything gets built.",
+    ],
+    listTitle: "Settled before we build",
+    list: ["What it has to move", "What will be built", "What will not", "What done looks like"],
+  },
+  {
+    id: "build",
+    num: "02",
+    name: "Build",
+    line: "A short project, built around how you already work.",
+    heading: "A short project, built around how you already work.",
+    body: [
+      "Where we can, we build inside the tools the business already uses. If a new platform is the better answer, we’ll tell you why before we add one.",
+      "The work might speed something up, or give hours back so you can do the real work. You learn it as it stands up.",
+    ],
+    listTitle: "How the build runs",
+    list: ["Short and focused", "Tied to what we named in Diagnose", "You learn it as it stands up"],
+  },
+  {
+    id: "handoff",
+    num: "03",
+    name: "Handoff",
+    line: "It runs in the business. You keep it.",
+    heading: "You keep it.",
+    body: [
+      "If it isn’t in the operation, it isn’t done.",
+      "Ongoing work is a separate conversation. The door stays open.",
+    ],
+    listTitle: "What stays with you",
+    list: ["The logins", "The notes", "The workflow itself"],
+  },
+];
 
 export default function ApproachPage() {
   return (
     <>
-      <header className="page-head">
+      <header className="page-head page-field">
         <div className="wrap">
-          <h1>Diagnose. Build. Handoff.</h1>
-          <p>Named objective. Scoped build. You keep the system. Continue if you want more.</p>
-          <ol className="path">
-            <li>
-              <h3>Diagnose</h3>
-              <p>Your north star. Name the objective.</p>
-            </li>
-            <li>
-              <h3>Build</h3>
-              <p>A short, scoped project. Standing up.</p>
-            </li>
-            <li>
-              <h3>Handoff</h3>
-              <p>You keep the system.</p>
-            </li>
-          </ol>
+          <h1>
+            <span className="tone">One objective.</span> Three parts to get there.
+          </h1>
         </div>
       </header>
-      <article className="wrap prose">
-        <h2>Diagnose</h2>
-        <p className="lede">
-          We start with where you’re trying to go. Your north star. The objective for this
-          engagement — growth, capacity, speed, unlock, or quality. What you’d trust as a measure of
-          progress, if anything clean exists yet.
-        </p>
-        <p>
-          The output is a named scope: what will be built, what will not, and what “done” looks like
-          in the operation. If it isn’t specific enough to build, we say so. Fees stay scoped until
-          a metric is something both sides can sign — we don’t invent one to look clever.
-        </p>
 
-        <h2>Build</h2>
-        <p className="lede">
-          A short, scoped project. Not an open-ended strategy retainer. We implement inside the tools
-          the business already lives in wherever we can, rather than dropping a new platform on the
-          floor. You learn as it stands up — learning is part of the path, not a separate workshop.
-        </p>
-        <p>
-          Under one objective, the path might accelerate the work (for example outreach that supports
-          a growth goal) or free capacity (hours back from admin so you can pursue that same goal).
-          Sometimes both. Those are paths, not a product menu. Estimates live in the statement of
-          work — we don’t sell a calendar length as the offer.
-        </p>
-
-        <h2>Handoff</h2>
-        <p className="lede">
-          You keep the system. Logins, documentation, and the workflow itself sit with the business.
-          We don’t leave a slide.
-        </p>
-        <p>
-          If something isn’t in the operation, it isn’t done. After the first scoped build, some
-          clients stay for ongoing work under the same north star. That is a separate conversation —
-          the door stays open — not a surprise inside the first engagement.
-        </p>
-
-        <h2>What we don’t do</h2>
-        <p>
-          Strategy decks as the deliverable. Tool tours. “AI literacy” workshops that end when the
-          Zoom ends. Learning in service of a named objective is in scope; a report on what AI could
-          mean someday is not. If you want AI for its own sake, with no objective attached, we are
-          the wrong firm.
-        </p>
-
-        <div className="btn-row">
-          <BookCall className="btn btn-navy" />
-          <Link className="btn" href="/contact" style={{ border: "1px solid var(--line)" }}>
-            Send a note
-          </Link>
+      <section className="lift">
+        <div className="wrap">
+          <StageTabs stages={stages} />
         </div>
-      </article>
+      </section>
+
+      <CloseBlock />
     </>
   );
 }

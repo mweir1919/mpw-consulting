@@ -8,13 +8,16 @@ type Status =
   | { kind: "ok"; note: string }
   | { kind: "error"; note: string };
 
+const FOCUS = ["Growth", "Capacity", "Speed", "Unlock", "Quality"];
+
 export function ContactForm() {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const data = Object.fromEntries(new FormData(form).entries());
+    const fields = new FormData(form);
+    const data = { ...Object.fromEntries(fields.entries()), focus: fields.getAll("focus") };
     setStatus({ kind: "sending" });
 
     try {
@@ -39,7 +42,7 @@ export function ContactForm() {
   }
 
   return (
-    <form className="panel" onSubmit={onSubmit}>
+    <form className="contact-form" onSubmit={onSubmit}>
       <label htmlFor="name">Name</label>
       <input id="name" name="name" autoComplete="name" required />
 
@@ -54,7 +57,20 @@ export function ContactForm() {
         <input id="company_site" name="company_site" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <label htmlFor="note">What you’re trying to move</label>
+      <fieldset className="focus-set">
+        <legend>What matters most right now</legend>
+        <p className="focus-hint">Pick any that apply.</p>
+        <div className="focus-chips">
+          {FOCUS.map((f) => (
+            <label key={f} className="chip">
+              <input type="checkbox" name="focus" value={f} />
+              <span>{f}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <label htmlFor="note">Where the business is headed, and what’s in the way</label>
       <textarea id="note" name="note" required />
 
       <button className="btn btn-navy" type="submit" disabled={status.kind === "sending"}>
