@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
 import { BookCall } from "@/components/BookCall";
 import { site } from "@/lib/site";
@@ -64,7 +65,9 @@ export default function ContactPage() {
           <div className="contact-card">
             <p className="section-label">Send a note</p>
             <ContactForm />
-            <p className="form-fine">We use this to reply. Nothing else.</p>
+            <p className="form-fine">
+              We use this to reply. Nothing else. <Link href="/privacy">Privacy</Link>
+            </p>
           </div>
         </div>
       </section>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Libre_Caslon_Text, Public_Sans } from "next/font/google";
+import { Analytics } from "@/components/Analytics";
 import { SiteChrome } from "@/components/SiteChrome";
 import "./globals.css";
 
@@ -62,24 +62,13 @@ const jsonLd = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
-      <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-TS21FZQ67C"
-          strategy="beforeInteractive"
-        />
-        <Script id="gtag-init" strategy="beforeInteractive">
-          {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-TS21FZQ67C');`}
-        </Script>
-      </head>
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <SiteChrome>{children}</SiteChrome>
+        <Analytics />
       </body>
     </html>
   );

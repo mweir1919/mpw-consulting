@@ -17,6 +17,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             <Link href="/approach">Approach</Link>
             <Link href="/about">About</Link>
             <Link href="/contact">Contact</Link>
+            <Link href="/privacy">Privacy</Link>
           </div>
         </div>
       </footer>
