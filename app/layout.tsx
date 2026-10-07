@@ -37,7 +37,10 @@ export const metadata: Metadata = {
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
-  icons: { icon: "/favicon.svg" },
+  icons: {
+    icon: [{ url: "/icon.png", type: "image/png", sizes: "512x512" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
 };
 
 const jsonLd = {
@@ -46,6 +49,12 @@ const jsonLd = {
   name: "MPW Consulting",
   url: "https://mpwconsulting.ca",
   email: "hello@mpwconsulting.ca",
+  logo: {
+    "@type": "ImageObject",
+    url: "https://mpwconsulting.ca/icon.png",
+    width: 512,
+    height: 512,
+  },
   description,
   areaServed: [
     { "@type": "City", name: "Toronto" },
