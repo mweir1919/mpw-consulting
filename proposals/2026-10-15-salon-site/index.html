@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MPW Consulting Salons</title>
+<meta name="description" content="MPW Consulting builds rebooking, waitlist backfill and win-back for independent salons and appointment studios, inside the booking software they already use.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+  :root {
+    color-scheme: dark;
+    --sc-canvas:     #071526;
+    --sc-surface:    #0b1f3a;
+    --sc-ink:        #f3efe6;
+    --sc-ink-soft:   #a8b2bf;
+    --sc-accent:     #c9a85e;
+    --sc-accent-ink: #071526;
+    --sc-font-display: "Libre Caslon Text", "Times New Roman", serif;
+    --sc-font-text:    "Public Sans", system-ui, sans-serif;
+    --paper: #f1ece1;
+    --paper-ink: #1b2230;
+    --paper-soft: #5d6472;
+    --gold-ink: #7d5f22;
+  }
+  body { background: var(--sc-canvas); color: var(--sc-ink); }
+  img { display: block; }
+
+  /* ---------- top bar ---------- */
+  .bar {
+    position: fixed; inset: 0 0 auto 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px var(--sc-gutter);
+    background: linear-gradient(to bottom, color-mix(in oklab, var(--sc-canvas) 82%, transparent), transparent);
+  }
+  .mark { font-family: var(--sc-font-display); font-size: 1.15rem; letter-spacing: -0.01em; text-decoration: none; color: var(--sc-ink); }
+  .mark b { color: var(--sc-accent); font-weight: 400; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5em;
+    font: 600 0.95rem/1 var(--sc-font-text); letter-spacing: 0.01em;
+    padding: 0.85em 1.25em; border-radius: 3px; text-decoration: none; white-space: nowrap;
+    background: var(--sc-accent); color: var(--sc-accent-ink);
+    box-shadow: 0 1px 0 rgba(255,255,255,.25) inset, 0 8px 20px -10px rgba(0,0,0,.6);
+    transition: transform 140ms var(--sc-ease-out), background-color 160ms var(--sc-ease-out);
+  }
+  .btn:hover { background: #d8b96d; color: var(--sc-accent-ink); }
+  .btn:active { transform: translateY(1px); }
+  .btn:focus-visible, a:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 3px; }
+  .btn--sm { padding: 0.7em 1em; font-size: 0.875rem; }
+
+  /* ---------- 1 · hero: layered planes driven by --sc-p ---------- */
+  .hero { position: relative; }
+  .hero .sc-stage { background: #050d17; }
+  .plane { position: absolute; will-change: transform; }
+  .plane--room { inset: -4% -2% -2% -2%; }
+  .plane--room img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; max-width: none; }
+  .plane--room { transform: translateY(calc(var(--sc-p) * -36px)) scale(calc(1.02 + var(--sc-p) * 0.05)); }
+  .hero__scrim {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(120% 90% at 0% 40%, color-mix(in oklab, #050d17 78%, transparent) 0%, transparent 62%),
+      linear-gradient(to top, #071526 0%, transparent 22%);
+  }
+  .hero__copy {
+    position: absolute; z-index: 2;
+    left: var(--sc-gutter); top: 50%;
+    width: min(36rem, 52vw);
+    transform: translateY(calc(-50% - var(--sc-p) * 70px)) scale(calc(1 - var(--sc-p) * 0.05));
+    transform-origin: left center;
+    opacity: clamp(0, calc(1.2 - var(--sc-p) * 2.4), 1);
+  }
+  .hero h1 {
+    font-family: var(--sc-font-display); font-weight: 400;
+    font-size: clamp(2.6rem, 1.4rem + 4.2vw, 5.2rem);
+    line-height: 1.02; letter-spacing: -0.025em; text-wrap: balance;
+  }
+  .hero h1 em { color: var(--sc-accent); }
+  .hero__lead { margin-top: var(--sc-5); max-width: 30rem; color: #d3d8de; font-size: clamp(1.02rem, 0.95rem + 0.3vw, 1.18rem); line-height: 1.6; }
+  .hero__cta { margin-top: var(--sc-7); display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
+  .hero__cta .quiet { color: var(--sc-ink-soft); font-size: 0.95rem; }
+  .plane--chair {
+    z-index: 3; right: 7vw; bottom: -3vh;
+    width: clamp(17rem, 33vw, 33rem);
+    transform-origin: 50% 100%;
+    transform: translateY(calc((1 - var(--sc-p)) * 26px)) translateX(calc(var(--sc-p) * -9vw)) scale(calc(0.94 + var(--sc-p) * 0.2));
+  }
+  .plane--chair img { width: 100%; height: auto; max-width: none; filter: brightness(.82) contrast(1.04) saturate(.9); }
+  .plane--chair::before {
+    content: ""; position: absolute; left: 4%; right: -6%; bottom: -3%; height: 12%;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(0,0,0,.6), transparent 72%);
+    z-index: -1;
+  }
+  .plane--haze {
+    z-index: 4; inset: auto 0 0 0; height: 26vh; pointer-events: none;
+    background: linear-gradient(to top, #071526 8%, color-mix(in oklab, #071526 40%, transparent) 55%, transparent);
+    transform: translateY(calc((1 - var(--sc-p)) * 30px));
+  }
+  .hero__ask {
+    position: absolute; z-index: 5; left: var(--sc-gutter); bottom: 14vh;
+    font-family: var(--sc-font-display); font-style: italic;
+    font-size: clamp(1.6rem, 1rem + 2.4vw, 3rem); line-height: 1.1; letter-spacing: -0.02em;
+    max-width: 18ch;
+  }
+
+  /* ---------- 2 · the leak: plain statements ---------- */
+  .leak { padding-block: clamp(5rem, 14vh, 10rem) clamp(4rem, 12vh, 8rem); }
+  .leak__list { list-style: none; display: grid; gap: clamp(2.5rem, 7vh, 4.5rem); max-width: 50rem; }
+  .leak__list li { font-family: var(--sc-font-display); font-size: clamp(1.5rem, 1.05rem + 1.7vw, 2.6rem); line-height: 1.18; letter-spacing: -0.018em; color: var(--sc-ink); text-wrap: balance; }
+  .leak__list li:nth-child(2) { margin-left: clamp(0rem, 8vw, 9rem); }
+  .leak__list li:nth-child(3) { margin-left: clamp(0rem, 4vw, 4.5rem); }
+  .leak__turn { margin-top: clamp(4rem, 12vh, 7rem); max-width: 40rem; }
+  .leak__turn p { font-size: clamp(1.1rem, 1rem + .4vw, 1.3rem); color: var(--sc-ink-soft); line-height: 1.6; }
+  .leak__turn p strong { color: var(--sc-ink); font-weight: 500; }
+
+  /* ---------- 3 · the book fills (signature, peak) ---------- */
+  .book-act .sc-stage { display: grid; align-items: center; }
+  .book-wrap {
+    display: grid; grid-template-columns: minmax(16rem, 25rem) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem); align-items: center;
+    padding: 72px var(--sc-gutter) 24px; max-width: 82rem; margin-inline: auto; width: 100%;
+  }
+  .book-copy h2 { font-family: var(--sc-font-display); font-weight: 400; font-size: clamp(1.9rem, 1.2rem + 2.2vw, 3.2rem); line-height: 1.06; letter-spacing: -0.022em; text-wrap: balance; }
+  .keys { list-style: none; margin-top: var(--sc-7); display: grid; gap: 1.1rem; }
+  .keys li { --k: clamp(0, calc((var(--sc-p) - var(--at)) * 14), 1); opacity: calc(0.28 + var(--k) * 0.72); display: grid; grid-template-columns: 1.1rem 1fr; gap: 0.85rem; }
+  .keys li::before { content: ""; width: 0.8rem; height: 0.8rem; margin-top: 0.38rem; border-radius: 2px; background: var(--sc-accent); }
+  .keys li.k2::before { background: repeating-linear-gradient(135deg, var(--sc-accent) 0 2px, transparent 2px 4px); box-shadow: inset 0 0 0 1.5px var(--sc-accent); }
+  .keys li.k3::before { background: transparent; box-shadow: inset 0 0 0 2.5px var(--sc-accent); }
+  .keys li.k4::before { border-radius: 50%; }
+  .keys h3 { font: 600 1rem/1.3 var(--sc-font-text); letter-spacing: 0.005em; }
+  .keys p { font-size: 0.93rem; line-height: 1.5; color: var(--sc-ink-soft); margin-top: 0.2rem; max-width: 34ch; }
+  .k1 { --at: 0.14; } .k2 { --at: 0.32; } .k3 { --at: 0.50; } .k4 { --at: 0.68; }
+
+  .book {
+    background: var(--paper); color: var(--paper-ink); border-radius: 4px;
+    padding: clamp(1rem, 2.2vw, 1.75rem);
+    box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 30px 60px -28px rgba(0,0,0,.75), 0 6px 14px -8px rgba(0,0,0,.5);
+    transform: rotate(-0.6deg);
+  }
+  .book__head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #c9c0ad; padding-bottom: 0.6rem; margin-bottom: 0.8rem; }
+  .book__head span { font-family: var(--sc-font-display); font-style: italic; font-size: 1.05rem; }
+  .book__head small { font-size: 0.78rem; color: var(--paper-soft); }
+  .grid { display: grid; grid-template-columns: 2.4rem repeat(5, 1fr); gap: 4px; }
+  .grid .hd, .grid .hr { font-size: 0.72rem; color: var(--paper-soft); font-variant-numeric: tabular-nums; }
+  .grid .hd { text-align: center; padding-bottom: 0.3rem; letter-spacing: 0.06em; text-transform: uppercase; }
+  .grid .hr { text-align: right; padding-right: 0.45rem; align-self: center; }
+  .cells { grid-column: 2 / -1; grid-row: 2 / span 9; display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .grid { grid-template-rows: auto repeat(9, clamp(1.45rem, 4.1vh, 2.3rem)); }
+  .c { border-radius: 2px; position: relative; }
+  .c.b { background: #dcd4c3; }
+  .c.b::after { content: ""; position: absolute; left: 10%; top: 46%; height: 1.5px; width: var(--w); background: #8b8475; border-radius: 1px; opacity: .8; }
+  .c.e { box-shadow: inset 0 0 0 1px #cfc6b3; background: transparent; }
+  .c.e.s1 { --at: 0.14; } .c.e.s2 { --at: 0.32; } .c.e.s3 { --at: 0.50; } .c.e.s4 { --at: 0.68; }
+  .c.e[class*="s"] {
+    --k: clamp(0, calc((var(--sc-p) - var(--at) - var(--d)) * 12), 1);
+  }
+  .c.e[class*="s"]::before {
+    content: ""; position: absolute; inset: 0; border-radius: 2px;
+    opacity: var(--k);
+    transform: scale(calc(0.86 + var(--k) * 0.14));
+  }
+  .c.s1::before { background: #b88f3e; }
+  .c.s2::before { background: repeating-linear-gradient(135deg, #b88f3e 0 3px, #e3cf9f 3px 6px); }
+  .c.s3::before { box-shadow: inset 0 0 0 2.5px #9a7428; background: #efe3c6; }
+  .c.s4::before { background: radial-gradient(circle at 50% 50%, #b88f3e 0 28%, #efe3c6 30%); }
+  .book__note { margin-top: 0.9rem; font-size: 0.78rem; color: var(--paper-soft); line-height: 1.45; }
+
+  /* ---------- 4 · what we build: rail ---------- */
+  .rail-act .sc-stage { display: flex; align-items: center; }
+  .rail { display: flex; gap: clamp(1.25rem, 3vw, 2.5rem); padding-inline: var(--sc-gutter); align-items: center; will-change: transform; }
+  .rail > * { flex: 0 0 auto; }
+  .rail__lead { width: min(24rem, 80vw); }
+  .rail__lead h2 { font-family: var(--sc-font-display); font-weight: 400; font-size: clamp(2rem, 1.3rem + 2.4vw, 3.4rem); line-height: 1.04; letter-spacing: -0.022em; }
+  .rail__lead p { margin-top: var(--sc-4); color: var(--sc-ink-soft); max-width: 30ch; }
+  .lever { width: clamp(16rem, 24vw, 21rem); padding-top: 1.1rem; border-top: 1px solid var(--sc-hairline-strong); }
+  .lever--photo { width: clamp(17rem, 27vw, 24rem); }
+  .lever figure { margin-bottom: 1.1rem; overflow: hidden; border-radius: 3px; box-shadow: var(--sc-e2); }
+  .lever figure img { width: 100%; height: clamp(12rem, 30vh, 17rem); object-fit: cover; max-width: none; }
+  .lever h3 { font-family: var(--sc-font-display); font-weight: 400; font-size: 1.6rem; letter-spacing: -0.015em; }
+  .lever p { margin-top: 0.55rem; color: var(--sc-ink-soft); font-size: 0.98rem; line-height: 1.55; }
+  .rail__end { width: min(22rem, 78vw); padding-left: clamp(0rem, 2vw, 2rem); }
+  .rail__end p { font-family: var(--sc-font-display); font-style: italic; font-size: clamp(1.3rem, 1rem + 1vw, 1.75rem); line-height: 1.3; }
+  @media (prefers-reduced-motion: no-preference) {
+    .rail-act .lever { --q: clamp(0, calc((var(--sc-p) - var(--i) * 0.1) * 6 + 0.55), 1); opacity: var(--q); }
+  }
+
+  /* ---------- 5 · terms ---------- */
+  .terms { padding-block: clamp(5rem, 12vh, 9rem); background: var(--sc-surface); }
+  .terms__grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+  .terms h2 { font-family: var(--sc-font-display); font-weight: 400; font-size: clamp(2rem, 1.3rem + 2.3vw, 3.3rem); line-height: 1.05; letter-spacing: -0.022em; text-wrap: balance; }
+  .steps { list-style: none; counter-reset: s; margin-top: var(--sc-8); display: grid; gap: 1.9rem; }
+  .steps li { counter-increment: s; display: grid; grid-template-columns: 3rem 1fr; gap: 0.5rem; }
+  .steps li::before { content: counter(s); font-family: var(--sc-font-display); font-style: italic; font-size: 1.5rem; color: var(--sc-accent); line-height: 1.2; }
+  .steps h3 { font: 600 1.05rem/1.35 var(--sc-font-text); }
+  .steps p { color: var(--sc-ink-soft); margin-top: 0.3rem; max-width: 46ch; line-height: 1.6; }
+  .terms figure { position: sticky; top: 12vh; border-radius: 3px; overflow: hidden; box-shadow: var(--sc-e3); }
+  .terms figure img { width: 100%; height: auto; max-width: none; aspect-ratio: 4 / 5; object-fit: cover; object-position: 66% 60%; }
+  .terms figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.5rem 1.25rem 1.1rem; background: linear-gradient(to top, rgba(5,13,23,.88), transparent); font-size: 0.92rem; line-height: 1.5; }
+  .fit { margin-top: clamp(4rem, 10vh, 6rem); padding-top: 2rem; border-top: 1px solid var(--sc-hairline); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
+  .fit h3 { font: 600 0.8rem/1 var(--sc-font-text); letter-spacing: 0.12em; text-transform: uppercase; color: var(--sc-accent); }
+  .fit p { margin-top: 0.7rem; max-width: 44ch; line-height: 1.6; }
+
+  /* ---------- 6 · close ---------- */
+  .close { display: grid; place-items: center; text-align: center; }
+  .close::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(40rem 26rem at var(--sc-mx, 50%) var(--sc-my, 45%), rgba(201,168,94,.10), transparent 70%);
+  }
+  .close__inner { position: relative; padding: 0 var(--sc-gutter); }
+  .close h2 { font-family: var(--sc-font-display); font-weight: 400; font-size: clamp(2.2rem, 1.3rem + 3.4vw, 4.4rem); line-height: 1.03; letter-spacing: -0.025em; max-width: 16ch; margin-inline: auto; text-wrap: balance; }
+  .close p { margin: var(--sc-5) auto 0; max-width: 40ch; color: var(--sc-ink-soft); line-height: 1.6; }
+  .close .btn { margin-top: var(--sc-7); font-size: 1.02rem; padding: 1em 1.5em; }
+  .close .alt { display: block; margin-top: 1.1rem; font-size: 0.92rem; color: var(--sc-ink-soft); }
+  .close .alt a { color: var(--sc-ink); }
+  .foot { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; gap: 1rem; padding: 18px var(--sc-gutter); font-size: 0.82rem; color: var(--sc-ink-soft); border-top: 1px solid var(--sc-hairline); }
+  .foot a { color: var(--sc-ink-soft); }
+
+  /* ---------- phone ---------- */
+  @media (max-width: 860px) {
+    .hero__copy { top: 15vh; width: auto; right: var(--sc-gutter); transform: translateY(calc(var(--sc-p) * -60px)); }
+    .hero h1 { font-size: clamp(2.3rem, 1.6rem + 3vw, 3rem); }
+    .hero__lead { font-size: 1rem; }
+    .hero__scrim { background: linear-gradient(to bottom, rgba(5,13,23,.55) 0%, rgba(5,13,23,.82) 18%, rgba(5,13,23,.7) 48%, transparent 66%), linear-gradient(to top, #071526 0%, transparent 22%); }
+    .plane--room img { object-position: 72% 50%; }
+    .plane--chair { width: 62vw; right: 2vw; bottom: -2vh; transform: translateY(calc((1 - var(--sc-p)) * 18px)) scale(calc(0.94 + var(--sc-p) * 0.16)); }
+    .hero__ask { bottom: 7vh; max-width: 11ch; font-size: 1.6rem; }
+    .book-wrap { grid-template-columns: 1fr; gap: 1rem; padding-top: 64px; }
+    .book-copy h2 { font-size: 1.6rem; }
+    .keys { margin-top: 0.8rem; grid-template-columns: 1fr 1fr; gap: 0.6rem 1rem; }
+    .keys p { display: none; }
+    .keys h3 { font-size: 0.86rem; }
+    .grid { grid-template-rows: auto repeat(9, 1.35rem); }
+    .book { padding: 0.8rem; }
+    .book__note { font-size: 0.72rem; }
+    .terms__grid, .fit { grid-template-columns: 1fr; }
+    .terms figure { position: relative; top: 0; }
+    .terms figure img { aspect-ratio: 4 / 3; }
+    .foot { flex-direction: column; gap: 0.3rem; text-align: center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .plane, .hero__copy, .c::before { transform: none !important; }
+    .hero__copy { transform: translateY(-50%) !important; }
+  }
+  @media (prefers-reduced-motion: reduce) and (max-width: 860px) {
+    .hero__copy { transform: none !important; }
+  }
+</style>
+</head>
+<body>
+<span data-sc-progress></span>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<header class="bar">
+  <a class="mark" href="#top">MPW <b>Consulting</b></a>
+  <a class="btn btn--sm" href="https://calendly.com/max-mpwconsulting/30min">Book a call</a>
+</header>
+
+<main id="top">
+
+  <!-- 1 · Recognition: the empty chair. Layered planes, pinned. -->
+  <section class="hero" data-sc-act="pin" data-sc-span="2.1" data-sc-drift="#071526">
+    <div data-sc-stage>
+      <div class="plane plane--room" aria-hidden="true">
+        <picture>
+          <source media="(max-width: 860px)" srcset="assets/plate-m.webp">
+          <img src="assets/plate.webp" width="1920" height="1280" alt="">
+        </picture>
+      </div>
+      <div class="hero__scrim" aria-hidden="true"></div>
+      <div class="hero__copy">
+        <h1>Fill the chairs you <em>already pay&nbsp;for.</em></h1>
+        <p class="hero__lead">We build the rebooking, backfill and win-back your booking system isn’t doing. Inside the software you already use.</p>
+        <div class="hero__cta">
+          <a class="btn" href="https://calendly.com/max-mpwconsulting/30min">Book a call</a>
+          <span class="quiet">For independent salons and studios</span>
+        </div>
+      </div>
+      <div class="plane plane--chair" aria-hidden="true"><img src="assets/chair.webp" width="900" height="1332" alt=""></div>
+      <div class="plane plane--haze" aria-hidden="true"></div>
+      <p class="hero__ask" data-sc-cue="0.5 1 0.18 0.1">Who sits here Friday at two?</p>
+    </div>
+  </section>
+
+  <!-- 2 · Tension: the leak, named plainly. Flow. -->
+  <section class="leak" data-sc-drift="#0a1a30">
+    <div class="sc-wrap">
+      <ol class="leak__list" data-sc-in data-sc-stagger="80">
+        <li>A client pays and leaves without booking the next one.</li>
+        <li>A Friday cancellation sits open because nobody had time to work the list.</li>
+        <li>A regular stretches to every twelve weeks, then stops. Nobody notices for months.</li>
+      </ol>
+      <div class="leak__turn" data-sc-in>
+        <p><strong>None of it shows up as a cost.</strong> It shows up as an empty chair, a quiet Tuesday, a stylist on the clock with nobody in front of them.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · Peak: the book fills. Pinned, longest act. -->
+  <section class="book-act" data-sc-act="pin" data-sc-span="3.6" data-sc-drift="#0b1f3a">
+    <div data-sc-stage>
+      <div class="book-wrap">
+        <div class="book-copy">
+          <h2>Same week. Same staff. Fewer empty chairs.</h2>
+          <ul class="keys">
+            <li class="k1"><div><h3>Rebooked at the chair</h3><p>The next visit is booked before they leave, with a text if they didn’t.</p></div></li>
+            <li class="k2"><div><h3>Backfilled from a waitlist</h3><p>A cancellation goes to the people who wanted that slot. First to reply takes it.</p></div></li>
+            <li class="k3"><div><h3>Won back</h3><p>Clients past their usual gap get a personal note and a link to book.</p></div></li>
+            <li class="k4"><div><h3>Found</h3><p>Reviews asked for at the right moment, and a profile that Google and AI assistants can read.</p></div></li>
+          </ul>
+        </div>
+        <figure class="book" aria-label="Illustration: an appointment book for one week. Booked slots are grey; empty slots fill in gold as each fix is added.">
+          <div class="book__head"><span>The week</span><small>Illustration</small></div>
+          <div class="grid" aria-hidden="true">
+            <span></span><span class="hd">Tue</span><span class="hd">Wed</span><span class="hd">Thu</span><span class="hd">Fri</span><span class="hd">Sat</span>
+            <span class="hr">10</span><span class="hr">11</span><span class="hr">12</span><span class="hr">1</span><span class="hr">2</span><span class="hr">3</span><span class="hr">4</span><span class="hr">5</span><span class="hr">6</span>
+            <div class="cells">
+<span class="c b" style="--w:61%"></span>
+<span class="c b" style="--w:92%"></span>
+<span class="c e s3" style="--d:0.029"></span>
+<span class="c e s3" style="--d:0.009"></span>
+<span class="c e s3" style="--d:0.005"></span>
+<span class="c e s4" style="--d:0.036"></span>
+<span class="c e s2" style="--d:0.028"></span>
+<span class="c e s2" style="--d:0.031"></span>
+<span class="c b" style="--w:86%"></span>
+<span class="c e s1" style="--d:0.034"></span>
+<span class="c b" style="--w:82%"></span>
+<span class="c b" style="--w:75%"></span>
+<span class="c b" style="--w:84%"></span>
+<span class="c e s2" style="--d:0.029"></span>
+<span class="c b" style="--w:84%"></span>
+<span class="c b" style="--w:78%"></span>
+<span class="c b" style="--w:74%"></span>
+<span class="c e s4" style="--d:0.012"></span>
+<span class="c b" style="--w:66%"></span>
+<span class="c b" style="--w:70%"></span>
+<span class="c e s4" style="--d:0.004"></span>
+<span class="c b" style="--w:74%"></span>
+<span class="c b" style="--w:88%"></span>
+<span class="c e s2" style="--d:0.025"></span>
+<span class="c b" style="--w:76%"></span>
+<span class="c e s3" style="--d:0.036"></span>
+<span class="c b" style="--w:73%"></span>
+<span class="c b" style="--w:59%"></span>
+<span class="c e s1" style="--d:0.006"></span>
+<span class="c e s1" style="--d:0.021"></span>
+<span class="c e s3" style="--d:0.038"></span>
+<span class="c b" style="--w:64%"></span>
+<span class="c e s1" style="--d:0.047"></span>
+<span class="c e s1" style="--d:0.021"></span>
+<span class="c e s2" style="--d:0.048"></span>
+<span class="c b" style="--w:59%"></span>
+<span class="c b" style="--w:90%"></span>
+<span class="c b" style="--w:91%"></span>
+<span class="c e"></span>
+<span class="c b" style="--w:75%"></span>
+<span class="c e s1" style="--d:0.017"></span>
+<span class="c e s4" style="--d:0.018"></span>
+<span class="c b" style="--w:86%"></span>
+<span class="c b" style="--w:92%"></span>
+<span class="c b" style="--w:84%"></span>
+            </div>
+          </div>
+          <figcaption class="book__note">Not client data. Your numbers come from your own booking history, agreed before we build anything.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · Range: what we build. Pan. -->
+  <section class="rail-act" data-sc-act="pan" data-sc-span="4.2" data-sc-drift="#081a2f">
+    <div data-sc-stage>
+      <div class="rail" data-sc-pan="0.04">
+        <div class="rail__lead">
+          <h2>What we build</h2>
+          <p>Five pieces. Most studios need two or three. We pick them from your numbers, not a package.</p>
+        </div>
+        <article class="lever lever--photo" style="--i:0">
+          <figure><img src="assets/station.webp" width="900" height="1350" alt="An empty styling station with a folded towel and scissors on the shelf." loading="lazy"></figure>
+          <h3>Rebooking</h3>
+          <p>A prompt at checkout and a text the next day for anyone who left without a next visit.</p>
+        </article>
+        <article class="lever" style="--i:1">
+          <h3>Waitlist</h3>
+          <p>When someone cancels, the opening goes out to clients who asked for that day. The slot fills without a phone call.</p>
+        </article>
+        <article class="lever" style="--i:2">
+          <h3>Win-back</h3>
+          <p>We find clients who are past their usual gap and send a note that sounds like you, with a link to book.</p>
+        </article>
+        <article class="lever lever--photo" style="--i:3">
+          <figure><img src="assets/desk.webp" width="1600" height="1067" alt="A salon reception desk with a tablet, a brass bell and a stack of blank cards." loading="lazy"></figure>
+          <h3>Reviews</h3>
+          <p>A request sent after a good visit, when the client is happiest, not weeks later.</p>
+        </article>
+        <article class="lever" style="--i:4">
+          <h3>Search</h3>
+          <p>Your services, prices and FAQs written so Google and AI assistants can recommend you when someone asks.</p>
+        </article>
+        <div class="rail__end">
+          <p>It runs in your accounts. You keep all of it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · Substance: how it works and how we're paid. Flow + reveal. -->
+  <section class="terms" data-sc-drift="#0b1f3a">
+    <div class="sc-wrap">
+      <div class="terms__grid">
+        <div>
+          <h2 data-sc-in>One project. A clear finish line.</h2>
+          <ol class="steps" data-sc-in data-sc-stagger="70">
+            <li><div><h3>Baseline</h3><p>We pull six to twelve months from your booking software and agree the numbers with you: rebook rate, no-shows, lapsed clients, empty hours.</p></div></li>
+            <li><div><h3>Build</h3><p>Four to six weeks, fixed scope, flat fee. Half to start, half when it’s running.</p></div></li>
+            <li><div><h3>Count</h3><p>Ninety days later we count completed bookings against the baseline. Beat it and a one-time bonus we agreed up front is due. Miss it and you owe nothing more.</p></div></li>
+            <li><div><h3>Hand off</h3><p>No retainer. Everything is documented and stays in your accounts.</p></div></li>
+          </ol>
+        </div>
+        <figure data-sc-reveal="up" data-sc-reveal-at="0.05 0.45">
+          <img src="assets/room.webp" width="1400" height="933" alt="Three empty styling chairs facing brass mirrors at the end of the day." loading="lazy">
+          <figcaption>We get paid more only if your book gets fuller. That’s the whole idea.</figcaption>
+        </figure>
+      </div>
+      <div class="fit" data-sc-in data-sc-stagger="70">
+        <div>
+          <h3>Who it’s for</h3>
+          <p>Independent hair salons and wax, lash and brow studios. Three to fifteen chairs, an owner who still works the floor.</p>
+        </div>
+        <div>
+          <h3>What it works with</h3>
+          <p>Vagaro and Square Appointments directly. Fresha through its data export. On something else? Ask on the call.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · Commitment. Pinned, last element. -->
+  <section id="book" data-sc-act="pin" data-sc-span="1.3" data-sc-drift="#071526">
+    <div data-sc-stage class="close" data-sc-spotlight>
+      <div class="close__inner">
+        <h2 data-sc-cue="0 1 0 0">Find out what your book is leaving empty.</h2>
+        <p data-sc-cue="0 1 0 0">Thirty minutes. We’ll ask what you book on and where the week goes quiet. No pitch deck.</p>
+        <a class="btn" href="https://calendly.com/max-mpwconsulting/30min" data-sc-magnet="0.26" data-sc-cue="0 1 0 0" data-sc-rise="0">Book a call</a>
+        <span class="alt">Or write to <a href="mailto:hello@mpwconsulting.ca">hello@mpwconsulting.ca</a></span>
+      </div>
+      <footer class="foot">
+        <span>MPW Consulting · Toronto</span>
+        <span><a href="https://mpwconsulting.ca/privacy">Privacy</a></span>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="scrollcraft.js"></script>
+<script>ScrollCraft.mount(document.body);</script>
+</body>
+</html>
