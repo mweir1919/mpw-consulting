@@ -53,14 +53,12 @@
 
   /* 1 · hero: the goal line swaps as you scroll */
   .hero .sc-stage { display: grid; align-items: center; }
-  .hero__photo { position: absolute; inset: 0 0 0 38%; pointer-events: none;
     -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 45%); mask-image: linear-gradient(to right, transparent 0%, #000 45%);
     opacity: 0.55; transform: translateY(calc(var(--sc-p) * -24px)) scale(calc(1.03 + var(--sc-p) * 0.03)); }
-  .hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; max-width: none; }
   .hero__inner { position: relative; z-index: 2; }
   .hero h1 { font-family: var(--sc-font-display); font-weight: 400; font-size: clamp(2.5rem, 1.3rem + 4.4vw, 5.4rem); line-height: 1.04; letter-spacing: -0.025em; }
   .goal-slot { display: grid; min-height: 2.15em; }
-  .goal-slot > span { grid-area: 1 / 1; font-style: italic; color: var(--sc-accent);
+  .goal-slot > span { grid-area: 1 / 1; color: var(--sc-accent);
     text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.16em; text-decoration-color: color-mix(in oklab, var(--sc-accent) 55%, transparent);
     max-width: 14ch; }
   .hero__sub { margin-top: var(--sc-6); font-family: var(--sc-font-display); font-size: clamp(1.25rem, 1rem + 0.9vw, 1.7rem); line-height: 1.3; max-width: 34ch; text-wrap: balance; }
@@ -133,8 +131,7 @@
   .foot a { color: var(--sc-ink-soft); }
 
   @media (max-width: 860px) {
-    .hero__photo { inset: 0; opacity: 0.32; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 60%); mask-image: linear-gradient(to bottom, transparent 0%, #000 60%); }
-    .hero h1 { font-size: clamp(2.2rem, 1.4rem + 4vw, 3rem); }
+      .hero h1 { font-size: clamp(2.2rem, 1.4rem + 4vw, 3rem); }
     .picker, .runs__grid, .deal__grid { grid-template-columns: 1fr; }
     .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1rem; border-top: 0; }
     .tab { font-size: 1rem; padding: 0.7rem 0; }
@@ -147,8 +144,7 @@
     .foot .wrap { flex-direction: column; gap: 0.3rem; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero__photo { transform: none !important; }
-    .chart .line { stroke-dashoffset: 0; }
+      .chart .line { stroke-dashoffset: 0; }
     .chart .gain, .chart .lbl-gain { opacity: 1; }
   }
 </style>
@@ -170,12 +166,6 @@
   <!-- 1 · Hero. Complete at rest: the first goal, the promise and the button are all on screen at p = 0. Scroll only swaps the goal. -->
   <section class="hero" data-sc-act="pin" data-sc-span="1.9" data-sc-drift="#071526">
     <div data-sc-stage>
-      <div class="hero__photo" aria-hidden="true">
-        <picture>
-          <source media="(max-width: 860px)" srcset="assets/office-m.webp">
-          <img src="assets/office.webp" width="1600" height="1067" alt="">
-        </picture>
-      </div>
       <div class="wrap hero__inner">
         <h1>This year I want
           <span class="goal-slot">
@@ -183,7 +173,7 @@
             <span data-sc-cue="0.2 0.38 0.04 0.04" aria-hidden="true">my evenings back.</span>
             <span data-sc-cue="0.4 0.58 0.04 0.04" aria-hidden="true">quotes out the same&nbsp;day.</span>
             <span data-sc-cue="0.6 0.78 0.04 0.04" aria-hidden="true">fewer no-shows.</span>
-            <span data-sc-cue="0.8 1 0.04 0.02" aria-hidden="true">to say yes to more work.</span>
+            <span data-sc-cue="0.8 1 0.04 0.02" aria-hidden="true">to stop chasing invoices.</span>
           </span>
         </h1>
         <p class="hero__sub">Name yours. We build what moves it.</p>

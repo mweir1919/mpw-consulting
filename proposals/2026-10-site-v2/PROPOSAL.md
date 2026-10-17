@@ -11,7 +11,7 @@ He also said the alignment was off and some scroll sections ran too long. v2 put
 
 ## Decisions Max made (2026-10-17)
 
-- **Hero: the owner's goal (option A).** "This year I want ___". The goal changes as you scroll: more repeat customers, my evenings back, quotes out the same day, fewer no-shows, to say yes to more work. It resolves to "Name yours. We build what moves it." The hero is complete before any scroll, with the first goal, the promise and the button all on screen. Behind the type on the right is a subtle photo of a dim back office after hours.
+- **Hero: the owner's goal (option A).** "This year I want ___". The goal changes as you scroll: more repeat customers, my evenings back, quotes out the same day, fewer no-shows, to stop chasing invoices. It resolves to "Name yours. We build what moves it." The hero is complete before any scroll, with the first goal, the promise and the button all on screen. Type only, no photo, and the goal line is set upright (no italics).
 - **Pay-for-results sits low, just before the close.**
 
 ## The page
@@ -33,10 +33,10 @@ He also said the alignment was off and some scroll sections ran too long. v2 put
 
 ## Open calls for Max
 
-1. **The five hero goals.** Swap any for wording you'd hear from a real owner.
+1. ~~The five hero goals.~~ Decided 2026-10-17: more repeat customers, my evenings back, quotes out the same day, fewer no-shows, to stop chasing invoices.
 2. **Bonus wording.** "A one-time bonus is due only on what lands above the line." Should the amount stay off the site?
 3. **GWL clearance** before anything public (still open in `CEO/decisions.md`).
-4. **Photo.** Keep the generated back-office image, swap in a real one, or go type-only.
+4. ~~Photo.~~ Decided 2026-10-17: type only.
 
 ## Shipping it (after a yes)
 
