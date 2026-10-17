@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MPW Consulting Site</title>
+<meta name="description" content="MPW Consulting builds what moves an owner-run business toward its own goal: more customers, hours back, faster work, fewer dropped balls.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+  /* Layout: one shared container (.wrap, 72rem) so every section's left edge lines up with the logo. */
+  :root {
+    color-scheme: dark;
+    --sc-canvas:     #071526;
+    --sc-surface:    #0b1f3a;
+    --sc-ink:        #f3efe6;
+    --sc-ink-soft:   #a8b2bf;
+    --sc-accent:     #c9a85e;
+    --sc-accent-ink: #071526;
+    --sc-font-display: "Libre Caslon Text", "Times New Roman", serif;
+    --sc-font-text:    "Public Sans", system-ui, sans-serif;
+    --line: rgba(243, 239, 230, 0.14);
+    --page: 72rem;
+    --side: max(20px, env(safe-area-inset-left, 0px), 4vw);
+  }
+  body { background: var(--sc-canvas); color: var(--sc-ink); }
+  img { display: block; }
+  ul, ol { padding: 0; margin: 0; }
+  .wrap { width: 100%; max-width: calc(var(--page) + 2 * var(--side)); margin-inline: auto; padding-inline: var(--side); }
+
+  .btn {
+    display: inline-flex; align-items: center;
+    font: 600 0.95rem/1 var(--sc-font-text); letter-spacing: 0.01em;
+    padding: 0.85em 1.25em; border-radius: 3px; text-decoration: none; white-space: nowrap;
+    background: var(--sc-accent); color: var(--sc-accent-ink);
+    transition: transform 140ms var(--sc-ease-out), background-color 160ms var(--sc-ease-out);
+  }
+  .btn:hover { background: #d8b96d; color: var(--sc-accent-ink); }
+  .btn:active { transform: translateY(1px); }
+  :is(a, button):focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 3px; }
+  .btn--sm { padding: 0.7em 1em; font-size: 0.875rem; }
+  .h2 { font-family: var(--sc-font-display); font-weight: 400; font-size: clamp(1.9rem, 1.3rem + 2vw, 3rem); line-height: 1.06; letter-spacing: -0.02em; text-wrap: balance; }
+  .lede { color: var(--sc-ink-soft); font-size: clamp(1rem, 0.95rem + 0.25vw, 1.12rem); line-height: 1.6; max-width: 42ch; }
+
+  /* bar */
+  .bar { position: fixed; inset: 0 0 auto 0; z-index: 20; padding-top: env(safe-area-inset-top, 0px);
+    background: linear-gradient(to bottom, color-mix(in oklab, var(--sc-canvas) 88%, transparent), transparent); }
+  .bar .wrap { display: flex; align-items: center; justify-content: space-between; padding-block: 16px; }
+  .mark { font-family: var(--sc-font-display); font-size: 1.15rem; text-decoration: none; color: var(--sc-ink); }
+  .mark b { color: var(--sc-accent); font-weight: 400; }
+
+  /* 1 · hero: the goal line swaps as you scroll */
+  .hero .sc-stage { display: grid; align-items: center; }
+  .hero__photo { position: absolute; inset: 0 0 0 38%; pointer-events: none;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 45%); mask-image: linear-gradient(to right, transparent 0%, #000 45%);
+    opacity: 0.55; transform: translateY(calc(var(--sc-p) * -24px)) scale(calc(1.03 + var(--sc-p) * 0.03)); }
+  .hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; max-width: none; }
+  .hero__inner { position: relative; z-index: 2; }
+  .hero h1 { font-family: var(--sc-font-display); font-weight: 400; font-size: clamp(2.5rem, 1.3rem + 4.4vw, 5.4rem); line-height: 1.04; letter-spacing: -0.025em; }
+  .goal-slot { display: grid; min-height: 2.15em; }
+  .goal-slot > span { grid-area: 1 / 1; font-style: italic; color: var(--sc-accent);
+    text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.16em; text-decoration-color: color-mix(in oklab, var(--sc-accent) 55%, transparent);
+    max-width: 14ch; }
+  .hero__sub { margin-top: var(--sc-6); font-family: var(--sc-font-display); font-size: clamp(1.25rem, 1rem + 0.9vw, 1.7rem); line-height: 1.3; max-width: 34ch; text-wrap: balance; }
+  .hero__note { margin-top: var(--sc-3); color: var(--sc-ink-soft); max-width: 44ch; line-height: 1.6; }
+  .hero__cta { margin-top: var(--sc-6); }
+
+  /* 2 · goals: pick one, see what we'd build */
+  .goals { padding-block: clamp(4rem, 10vh, 7rem); }
+  .goals__head { display: grid; gap: var(--sc-3); margin-bottom: clamp(2rem, 5vh, 3rem); }
+  .picker { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: start; }
+  .tabs { display: grid; border-top: 1px solid var(--line); }
+  .tab { all: unset; cursor: pointer; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 1rem;
+    padding: 1rem 0; border-bottom: 1px solid var(--line); font-family: var(--sc-font-display); font-size: clamp(1.1rem, 1rem + 0.4vw, 1.35rem); color: var(--sc-ink-soft);
+    transition: color 160ms var(--sc-ease-out); }
+  .tab::after { content: "→"; font-family: var(--sc-font-text); font-size: 0.9rem; opacity: 0; transform: translateX(-4px); transition: opacity 160ms var(--sc-ease-out), transform 160ms var(--sc-ease-out); color: var(--sc-accent); }
+  .tab:hover { color: var(--sc-ink); }
+  .tab[aria-selected="true"] { color: var(--sc-ink); }
+  .tab[aria-selected="true"]::after { opacity: 1; transform: none; }
+  .panel { background: var(--sc-surface); border-radius: 4px; padding: clamp(1.25rem, 3vw, 2.25rem); box-shadow: 0 1px 0 rgba(255,255,255,.05) inset, 0 24px 48px -30px rgba(0,0,0,.8); }
+  .panel[hidden] { display: none; }
+  .panel h3 { font: 600 0.78rem/1 var(--sc-font-text); letter-spacing: 0.12em; text-transform: uppercase; color: var(--sc-accent); }
+  .examples { list-style: none; margin-top: 1.1rem; display: grid; gap: 1.1rem; }
+  .examples li { display: grid; grid-template-columns: 9.5rem 1fr; gap: 1rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--line); }
+  .examples li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .examples .who { font-size: 0.88rem; color: var(--sc-ink-soft); padding-top: 0.15rem; }
+  .examples p { line-height: 1.55; }
+  .count { margin-top: 1.6rem; padding-top: 1.2rem; border-top: 1px solid var(--line); display: grid; grid-template-columns: 9.5rem 1fr; gap: 1rem; }
+  .count p { line-height: 1.55; }
+  .goals__foot { margin-top: 1.5rem; color: var(--sc-ink-soft); font-size: 0.95rem; max-width: 60ch; }
+
+  /* 3 · how it runs */
+  .runs { padding-block: clamp(3.5rem, 9vh, 6rem); border-top: 1px solid var(--line); }
+  .runs__grid { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); }
+  .steps { list-style: none; display: grid; grid-auto-rows: auto; align-items: start; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.25rem, 3vw, 2.5rem); }
+  .steps h3 { font-family: var(--sc-font-display); font-weight: 400; font-size: 1.45rem; letter-spacing: -0.01em; }
+  .steps p { margin-top: 0.5rem; color: var(--sc-ink-soft); line-height: 1.6; }
+  .runs__offset { grid-column: 2; }
+  .fit { margin-top: clamp(2.5rem, 6vh, 3.5rem); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.25rem, 3vw, 2.5rem); }
+  .fit h3 { font: 600 0.78rem/1 var(--sc-font-text); letter-spacing: 0.12em; text-transform: uppercase; color: var(--sc-accent); }
+  .fit p { margin-top: 0.7rem; line-height: 1.6; max-width: 46ch; }
+
+  /* 4 · the deal: the line draws itself */
+  .deal .sc-stage { display: grid; align-items: center; }
+  .deal__grid { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: center; padding-top: 56px; }
+  .deal__terms { list-style: none; margin-top: var(--sc-6); display: grid; gap: 1rem; }
+  .deal__terms li { line-height: 1.5; color: var(--sc-ink-soft); }
+  .deal__terms b { color: var(--sc-ink); font-weight: 600; }
+  .chart { width: 100%; height: auto; overflow: visible; }
+  .chart text { font-family: var(--sc-font-text); font-size: 15px; fill: var(--sc-ink-soft); }
+  .chart .t-strong { fill: var(--sc-ink); font-weight: 600; }
+  .chart .base { stroke: var(--sc-ink-soft); stroke-dasharray: 5 6; stroke-width: 1.5; fill: none; }
+  .chart .build { fill: rgba(243, 239, 230, 0.05); }
+  .chart .line { stroke: var(--sc-accent); stroke-width: 3; fill: none; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: calc(1 - min(1, var(--sc-p) * 1.5)); }
+  .chart .gain { fill: rgba(201, 168, 94, 0.22); opacity: clamp(0, calc((var(--sc-p) - 0.5) * 4), 1); }
+  .chart .lbl-gain { opacity: clamp(0, calc((var(--sc-p) - 0.6) * 4), 1); }
+  .chart .axis { stroke: var(--line); stroke-width: 1; }
+  .chart-note { margin-top: 0.6rem; font-size: 0.8rem; color: var(--sc-ink-soft); }
+
+  /* 5 · close */
+  .close { display: grid; align-items: center; }
+  .close::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(40rem 26rem at var(--sc-mx, 30%) var(--sc-my, 45%), rgba(201,168,94,.09), transparent 70%); }
+  .close__inner { position: relative; }
+  .close h2 { font-family: var(--sc-font-display); font-weight: 400; font-size: clamp(2.2rem, 1.3rem + 3.2vw, 4.2rem); line-height: 1.04; letter-spacing: -0.025em; max-width: 16ch; text-wrap: balance; }
+  .close p { margin-top: var(--sc-5); max-width: 42ch; color: var(--sc-ink-soft); line-height: 1.6; }
+  .close .btn { margin-top: var(--sc-6); }
+  .close .alt { display: block; margin-top: 1rem; font-size: 0.92rem; color: var(--sc-ink-soft); user-select: all; }
+  .foot { position: absolute; left: 0; right: 0; bottom: 0; border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--sc-ink-soft); }
+  .foot .wrap { display: flex; justify-content: space-between; gap: 1rem; padding-block: 16px calc(16px + env(safe-area-inset-bottom, 0px)); }
+  .foot a { color: var(--sc-ink-soft); }
+
+  @media (max-width: 860px) {
+    .hero__photo { inset: 0; opacity: 0.32; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 60%); mask-image: linear-gradient(to bottom, transparent 0%, #000 60%); }
+    .hero h1 { font-size: clamp(2.2rem, 1.4rem + 4vw, 3rem); }
+    .picker, .runs__grid, .deal__grid { grid-template-columns: 1fr; }
+    .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1rem; border-top: 0; }
+    .tab { font-size: 1rem; padding: 0.7rem 0; }
+    .examples li, .count { grid-template-columns: 1fr; gap: 0.25rem; }
+    .steps, .fit { grid-template-columns: 1fr; }
+    .runs__offset { grid-column: 1; }
+    .deal__grid { gap: 1rem; padding-top: 64px; }
+    .deal__terms { margin-top: 0.8rem; gap: 0.5rem; font-size: 0.92rem; }
+    .chart text { font-size: 30px; }
+    .foot .wrap { flex-direction: column; gap: 0.3rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__photo { transform: none !important; }
+    .chart .line { stroke-dashoffset: 0; }
+    .chart .gain, .chart .lbl-gain { opacity: 1; }
+  }
+</style>
+
+</head>
+<body>
+<span data-sc-progress></span>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="mark" href="#top">MPW <b>Consulting</b></a>
+    <a class="btn btn--sm" href="https://calendly.com/max-mpwconsulting/30min">Book a call</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 1 · Hero. Complete at rest: the first goal, the promise and the button are all on screen at p = 0. Scroll only swaps the goal. -->
+  <section class="hero" data-sc-act="pin" data-sc-span="1.9" data-sc-drift="#071526">
+    <div data-sc-stage>
+      <div class="hero__photo" aria-hidden="true">
+        <picture>
+          <source media="(max-width: 860px)" srcset="assets/office-m.webp">
+          <img src="assets/office.webp" width="1600" height="1067" alt="">
+        </picture>
+      </div>
+      <div class="wrap hero__inner">
+        <h1>This year I want
+          <span class="goal-slot">
+            <span data-sc-cue="0 0.18 0 0.04">more repeat customers.</span>
+            <span data-sc-cue="0.2 0.38 0.04 0.04" aria-hidden="true">my evenings back.</span>
+            <span data-sc-cue="0.4 0.58 0.04 0.04" aria-hidden="true">quotes out the same&nbsp;day.</span>
+            <span data-sc-cue="0.6 0.78 0.04 0.04" aria-hidden="true">fewer no-shows.</span>
+            <span data-sc-cue="0.8 1 0.04 0.02" aria-hidden="true">to say yes to more work.</span>
+          </span>
+        </h1>
+        <p class="hero__sub">Name yours. We build what moves it.</p>
+        <p class="hero__note">For owner-run businesses. AI does a lot of the work. Your goal stays the point.</p>
+        <div class="hero__cta"><a class="btn" href="https://calendly.com/max-mpwconsulting/30min">Book a call</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Goals. Interactive, not scroll-driven. -->
+  <section class="goals" data-sc-drift="#091a30">
+    <div class="wrap">
+      <div class="goals__head" data-sc-in>
+        <h2 class="h2">Start from the goal, not the tool.</h2>
+        <p class="lede">Most owners want one of five things. Pick yours to see what we might build and what we’d count.</p>
+      </div>
+      <div class="picker">
+        <div class="tabs" role="tablist" aria-label="Goals">
+          <button class="tab" role="tab" id="t-growth" aria-controls="p-growth" aria-selected="true">More customers</button>
+          <button class="tab" role="tab" id="t-hours" aria-controls="p-hours" aria-selected="false" tabindex="-1">Hours back</button>
+          <button class="tab" role="tab" id="t-speed" aria-controls="p-speed" aria-selected="false" tabindex="-1">Faster</button>
+          <button class="tab" role="tab" id="t-quality" aria-controls="p-quality" aria-selected="false" tabindex="-1">Fewer dropped balls</button>
+          <button class="tab" role="tab" id="t-unlock" aria-controls="p-unlock" aria-selected="false" tabindex="-1">Something new</button>
+        </div>
+        <div>
+          <div class="panel" role="tabpanel" id="p-growth" aria-labelledby="t-growth">
+            <h3>What it can look like</h3>
+            <ul class="examples">
+              <li><span class="who">Salon or studio</span><p>Clients past their usual gap get a personal note with a link to book.</p></li>
+              <li><span class="who">Landscaping</span><p>Every quote gets a follow-up on day two, five and ten, so none go cold.</p></li>
+              <li><span class="who">Cleaning company</span><p>Happy clients are asked for a review the day after, when they’re most likely to write one.</p></li>
+            </ul>
+            <div class="count"><h3>What we’d count</h3><p>New and returning customers, bookings, quotes won.</p></div>
+          </div>
+          <div class="panel" role="tabpanel" id="p-hours" aria-labelledby="t-hours" hidden>
+            <h3>What it can look like</h3>
+            <ul class="examples">
+              <li><span class="who">Bookkeeping office</span><p>Client documents are chased, renamed and filed without anyone sending reminders.</p></li>
+              <li><span class="who">Trades</span><p>Invoices are drafted from the job notes, ready for one look and send.</p></li>
+              <li><span class="who">Studio</span><p>Reschedules are handled by text, not phone tag.</p></li>
+            </ul>
+            <div class="count"><h3>What we’d count</h3><p>Hours a week the owner, or a named person, stops spending on it.</p></div>
+          </div>
+          <div class="panel" role="tabpanel" id="p-speed" aria-labelledby="t-speed" hidden>
+            <h3>What it can look like</h3>
+            <ul class="examples">
+              <li><span class="who">Contractor</span><p>Quotes go out the same day from a site visit and a few photos.</p></li>
+              <li><span class="who">Agency or office</span><p>New clients onboard through one form instead of six emails.</p></li>
+              <li><span class="who">Salon or studio</span><p>A cancelled slot goes to the waitlist within the hour.</p></li>
+            </ul>
+            <div class="count"><h3>What we’d count</h3><p>Time from request to done.</p></div>
+          </div>
+          <div class="panel" role="tabpanel" id="p-quality" aria-labelledby="t-quality" hidden>
+            <h3>What it can look like</h3>
+            <ul class="examples">
+              <li><span class="who">Trades</span><p>Every missed call gets a text back within a minute.</p></li>
+              <li><span class="who">Studio or clinic</span><p>Reminders that clients actually answer, so fewer people don’t show.</p></li>
+              <li><span class="who">Any front desk</span><p>Every inquiry gets an owner and a next step, so nothing sits in an inbox.</p></li>
+            </ul>
+            <div class="count"><h3>What we’d count</h3><p>No-shows, missed follow-ups, rework. Whatever you already track when it goes wrong.</p></div>
+          </div>
+          <div class="panel" role="tabpanel" id="p-unlock" aria-labelledby="t-unlock" hidden>
+            <h3>What it can look like</h3>
+            <ul class="examples">
+              <li><span class="who">Landscaping</span><p>A spring rebooking note to every past client, personal enough that it reads like you wrote it.</p></li>
+              <li><span class="who">Studio</span><p>Booking questions answered after hours, in your words.</p></li>
+              <li><span class="who">Any local business</span><p>Your services and prices written so Google and AI assistants can recommend you.</p></li>
+            </ul>
+            <div class="count"><h3>What we’d count</h3><p>What exists now that didn’t, and what it brings in.</p></div>
+          </div>
+          <p class="goals__foot">Examples, not packages. What we build for you comes from your goal and your numbers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · How it runs, who it's for. Plain flow. -->
+  <section class="runs" data-sc-drift="#0a1c33">
+    <div class="wrap">
+      <div class="runs__grid">
+        <h2 class="h2" data-sc-in>How it runs</h2>
+        <ol class="steps" data-sc-in data-sc-stagger="70">
+          <li><h3>Diagnose</h3><p>One conversation. Your goal in your words, what you already measure, and where it’s stuck.</p></li>
+          <li><h3>Build</h3><p>A short, fixed-scope project inside the tools you already use. You learn how it works as it goes in.</p></li>
+          <li><h3>Hand off</h3><p>Documented and running in your accounts. You keep all of it. If it isn’t in the operation, it isn’t done.</p></li>
+        </ol>
+      </div>
+      <div class="runs__grid">
+        <div class="fit runs__offset" data-sc-in data-sc-stagger="70">
+          <div><h3>Who it’s for</h3><p>Owner-run service businesses, usually three to thirty people, with the owner still close to the work.</p></div>
+          <div><h3>What we don’t sell</h3><p>Decks, workshops, or tools that don’t move the goal you came in with.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · The deal. Pinned, short. The line draws as you scroll. -->
+  <section class="deal" data-sc-act="pin" data-sc-span="1.7" data-sc-drift="#0b1f3a">
+    <div data-sc-stage>
+      <div class="wrap deal__grid">
+        <div>
+          <h2 class="h2" data-sc-cue="0 1 0 0">We get paid more when your number moves.</h2>
+          <ul class="deal__terms" data-sc-cue="0 1 0 0">
+            <li><b>Before:</b> we agree one number and its baseline, in writing.</li>
+            <li><b>Build:</b> a flat fee. Half to start, half when it’s running.</li>
+            <li><b>Ninety days later:</b> we count. A one-time bonus is due only on what lands above the line. No retainer.</li>
+          </ul>
+        </div>
+        <figure>
+          <svg class="chart" viewBox="0 0 720 360" role="img" aria-label="Illustration: a flat baseline, a build period, then a line rising above the baseline. The area above the baseline is where the bonus is earned.">
+            <line class="axis" x1="20" y1="300" x2="700" y2="300"/>
+            <rect class="build" x="230" y="40" width="170" height="260"/>
+            <text x="315" y="64" text-anchor="middle" class="t-strong">Build</text>
+            <text x="315" y="84" text-anchor="middle">flat fee</text>
+            <path class="gain" d="M400 220 C 480 214, 560 160, 690 108 L 690 220 Z"/>
+            <line class="base" x1="20" y1="220" x2="700" y2="220"/>
+            <text x="24" y="246">Baseline, agreed up front</text>
+            <path class="line" pathLength="1" d="M20 226 C 80 214, 140 232, 230 220 S 360 224, 400 220 C 480 214, 560 160, 690 108"/>
+            <text class="lbl-gain t-strong" x="690" y="180" text-anchor="end">Bonus only here</text>
+            <text x="230" y="326" text-anchor="middle">Start</text>
+            <text x="690" y="326" text-anchor="end">Day 90</text>
+          </svg>
+          <figcaption class="chart-note">Illustration. The real number and baseline come from your business.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · Close. Last element. -->
+  <section id="book" data-sc-act="pin" data-sc-span="1.15" data-sc-drift="#071526">
+    <div data-sc-stage class="close" data-sc-spotlight>
+      <div class="wrap close__inner">
+        <h2 data-sc-cue="0 1 0 0">What’s the number you want to move?</h2>
+        <p data-sc-cue="0 1 0 0">Thirty minutes. Bring the goal. We’ll tell you honestly whether we can move it.</p>
+        <a class="btn" href="https://calendly.com/max-mpwconsulting/30min" data-sc-magnet="0.22" data-sc-cue="0 1 0 0" data-sc-rise="0">Book a call</a>
+        <span class="alt">Or write to hello@mpwconsulting.ca</span>
+      </div>
+      <footer class="foot">
+        <div class="wrap"><span>MPW Consulting · Toronto</span><a href="https://mpwconsulting.ca/privacy">Privacy</a></div>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="scrollcraft.js"></script>
+<script>
+  ScrollCraft.mount(document.body);
+  (function () {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+    function select(t) {
+      tabs.forEach(function (x) {
+        var on = x === t;
+        x.setAttribute('aria-selected', on ? 'true' : 'false');
+        x.tabIndex = on ? 0 : -1;
+        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+      });
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { select(t); });
+      t.addEventListener('keydown', function (e) {
+        var d = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : (e.key === 'ArrowUp' || e.key === 'ArrowLeft') ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        var n = tabs[(i + d + tabs.length) % tabs.length]; select(n); n.focus();
+      });
+    });
+  })();
+</script>
+</body>
+</html>
