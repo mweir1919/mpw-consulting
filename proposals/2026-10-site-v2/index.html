@@ -109,34 +109,48 @@
   .count b { color: var(--navy); font-weight: 600; }
   .goals__foot { margin-top: 0.6rem; text-align: center; color: var(--muted); font-size: 0.92rem; }
 
-  /* 3 · how it runs (navy) */
-  .runs { padding-block: clamp(4rem, 10vh, 6.5rem); }
-  .runs__grid { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); }
-  .steps { list-style: none; display: grid; align-items: start; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.25rem, 3vw, 2.5rem); }
-  .steps h3 { font-family: var(--sc-font-display); font-weight: 400; font-size: 1.45rem; letter-spacing: -0.01em; }
-  .steps p { margin-top: 0.5rem; color: var(--sc-ink-soft); line-height: 1.6; }
-  .runs__offset { grid-column: 2; }
-  .fit { margin-top: clamp(2.5rem, 6vh, 3.5rem); padding-top: clamp(1.5rem, 4vh, 2.25rem); border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.25rem, 3vw, 2.5rem); }
-  .fit p { margin-top: 0.7rem; line-height: 1.6; max-width: 46ch; }
+  /* shared centred section head */
+  .sec-head { display: grid; justify-items: center; text-align: center; gap: 1rem; }
+  .sec-head > * { margin: 0; }
+  .sec-head .lede { margin-inline: auto; }
+
+  /* 3 · how it runs (navy): three stages on one track */
+  .runs { background: var(--navy); padding-block: clamp(4.5rem, 11vh, 7.5rem); }
+  .stages { list-style: none; position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); margin-top: clamp(2.5rem, 6vh, 3.5rem); }
+  .stages::before { content: ""; position: absolute; top: 1.5rem; left: 16.67%; right: 16.67%; height: 1px; background: rgba(201, 168, 94, 0.45); }
+  .stage { position: relative; display: grid; justify-items: center; align-content: start; gap: 1.1rem; text-align: center; }
+  .stage__num { width: 3rem; height: 3rem; border-radius: 50%; display: grid; place-items: center; background: var(--navy); border: 1.5px solid var(--sc-accent);
+    font-family: var(--sc-font-display); font-size: 1.25rem; color: var(--sc-accent); position: relative; z-index: 1; }
+  .stage__card { width: 100%; height: 100%; display: grid; align-content: start; justify-items: center; gap: 0.75rem;
+    padding: clamp(1.5rem, 3vw, 2.1rem) clamp(1.25rem, 2.5vw, 1.75rem); border: 1px solid var(--line); border-radius: 6px; background: rgba(243, 239, 230, 0.035); }
+  .stage__card h3 { font-family: var(--sc-font-display); font-weight: 400; font-size: clamp(1.4rem, 1.2rem + 0.5vw, 1.7rem); letter-spacing: -0.01em; margin: 0; }
+  .stage__card p { color: var(--sc-ink-soft); line-height: 1.6; max-width: 30ch; margin: 0; }
+  .stage__card .eyebrow { margin-top: 0.35rem; }
+  .fit { margin-top: clamp(3rem, 7vh, 4.5rem); padding-top: clamp(2rem, 5vh, 2.75rem); border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.25rem, 3vw, 2.5rem); text-align: center; }
+  .fit p { margin: 0.75rem auto 0; line-height: 1.6; max-width: 32ch; color: var(--sc-ink-soft); }
 
   /* 4 · the deal (light): the line draws itself */
   .deal [data-sc-stage] { background: var(--paper); }
   .deal .sc-stage { display: grid; align-items: center; }
-  .deal__grid { display: grid; grid-template-columns: minmax(0, 24rem) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: center; padding-top: 56px; }
+  .deal__inner { padding-top: 64px; }
   .deal .h2 { color: var(--navy); }
-  .deal__terms { list-style: none; margin-top: 1.5rem; display: grid; gap: 1.1rem; }
-  .deal__terms li { line-height: 1.55; color: var(--muted); }
-  .deal__terms b { display: block; color: var(--navy); font-weight: 600; margin-bottom: 0.15rem; }
+  .deal__grid { display: grid; grid-template-columns: minmax(0, 23rem) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; margin-top: clamp(1.75rem, 4.5vh, 2.75rem); }
+  .deal__terms { list-style: none; display: grid; gap: 1.35rem; }
+  .deal__terms li { display: grid; grid-template-columns: 2rem 1fr; column-gap: 0.85rem; line-height: 1.55; color: var(--muted); }
+  .deal__terms .n { grid-row: span 2; width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid var(--gold-deep); color: var(--gold-deep); font: 400 0.95rem/1 var(--sc-font-display); }
+  .deal__terms b { color: var(--navy); font-weight: 600; }
   .chart { width: 100%; height: auto; overflow: visible; }
   .chart text { font-family: var(--sc-font-text); font-size: 15px; fill: var(--muted); }
   .chart .t-strong { fill: var(--navy); font-weight: 600; }
   .chart .base { stroke: var(--muted); stroke-dasharray: 5 6; stroke-width: 1.5; fill: none; }
   .chart .build { fill: rgba(11, 31, 58, 0.06); }
+  .chart .tick { stroke: var(--line-light); stroke-width: 1; }
   .chart .line { stroke: var(--gold-deep); stroke-width: 3; fill: none; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: calc(1 - min(1, var(--sc-p) * 1.5)); }
-  .chart .gain { fill: rgba(196, 163, 90, 0.3); opacity: clamp(0, calc((var(--sc-p) - 0.5) * 4), 1); }
-  .chart .lbl-gain { opacity: clamp(0, calc((var(--sc-p) - 0.6) * 4), 1); }
+  .chart .gain { fill: rgba(196, 163, 90, 0.3); opacity: clamp(0, calc((var(--sc-p) - 0.45) * 4), 1); }
+  .chart .lbl-gain { opacity: clamp(0, calc((var(--sc-p) - 0.55) * 4), 1); }
   .chart .axis { stroke: var(--line-light); stroke-width: 1; }
-  .chart-note { margin-top: 0.6rem; font-size: 0.8rem; color: var(--muted); }
+  .chart-note { margin-top: 0.75rem; font-size: 0.82rem; color: var(--muted); text-align: center; }
 
   /* 5 · close (navy) */
   .close { display: grid; align-items: center; }
@@ -161,11 +175,15 @@
     .tab { white-space: nowrap; font-size: 0.95rem; padding: 0.65rem 1rem; }
     .examples { grid-template-columns: 1fr; }
     .examples li { min-height: 0; }
-    .runs__grid, .deal__grid { grid-template-columns: 1fr; }
-    .steps, .fit { grid-template-columns: 1fr; }
-    .runs__offset { grid-column: 1; }
-    .deal__grid { gap: 1rem; padding-top: 64px; }
-    .deal__terms { margin-top: 0.8rem; gap: 0.6rem; font-size: 0.92rem; }
+    .stages { grid-template-columns: 1fr; gap: 1.25rem; }
+    .stages::before { top: 1.5rem; bottom: 1.5rem; left: 1.5rem; right: auto; width: 1px; height: auto; }
+    .stage { grid-template-columns: 3rem 1fr; justify-items: stretch; text-align: left; gap: 1rem; }
+    .stage__card { justify-items: start; }
+    .fit { grid-template-columns: 1fr; text-align: left; }
+    .fit p { margin-left: 0; }
+    .deal__grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 1rem; }
+    .deal__terms { gap: 0.7rem; font-size: 0.9rem; }
+    .deal .h2 { font-size: 1.6rem; }
     .chart text { font-size: 30px; }
     .foot .wrap { flex-direction: column; gap: 0.3rem; }
   }
@@ -274,22 +292,21 @@
   </section>
 
   <!-- 3 · How it runs, who it's for (navy). Plain flow. -->
-  <section class="runs" data-sc-drift="#0a1c33">
+  <section class="runs" data-sc-drift="#0b1f3a">
     <div class="wrap">
-      <div class="runs__grid">
-        <h2 class="h2" data-sc-in>How the work runs</h2>
-        <ol class="steps" data-sc-in data-sc-stagger="70">
-          <li><h3>Diagnose</h3><p>We start with one conversation about your goal, what you already track and where things are stuck. If AI isn’t the right tool for it, we’ll say so.</p></li>
-          <li><h3>Build</h3><p>A short, fixed-scope project inside the tools you already use. You see how it works as we build it.</p></li>
-          <li><h3>Hand off</h3><p>It runs in your accounts, it’s documented, and it’s yours to keep. We’re not done until your team is using it.</p></li>
-        </ol>
+      <div class="sec-head" data-sc-in>
+        <h2 class="h2">How the work runs</h2>
+        <p class="lede">Three steps from first call to something running in your business.</p>
       </div>
-      <div class="runs__grid">
-        <div class="fit runs__offset" data-sc-in data-sc-stagger="70">
-          <div><h3 class="eyebrow">Who it’s for</h3><p>Owner-run service businesses, usually three to thirty people, where the owner is still close to the work.</p></div>
-          <div><h3 class="eyebrow">Where we work</h3><p>Online, from Toronto, and on-site when the work needs someone in the room.</p></div>
-          <div><h3 class="eyebrow">What we don’t sell</h3><p>Decks, workshops, or tools that don’t move the goal you came to us with.</p></div>
-        </div>
+      <ol class="stages" data-sc-in data-sc-stagger="90">
+        <li class="stage"><span class="stage__num">1</span><div class="stage__card"><h3>Diagnose</h3><p>One conversation about your goal, what you already track and where things are stuck. If AI isn’t the right tool for it, we’ll say so.</p><span class="eyebrow">One conversation</span></div></li>
+        <li class="stage"><span class="stage__num">2</span><div class="stage__card"><h3>Build</h3><p>A short, fixed-scope project inside the tools you already use. You see how it works as we build it.</p><span class="eyebrow">Fixed scope</span></div></li>
+        <li class="stage"><span class="stage__num">3</span><div class="stage__card"><h3>Hand off</h3><p>It runs in your accounts, it’s documented, and your team knows how to use it. We’re not done until they do.</p><span class="eyebrow">Yours to keep</span></div></li>
+      </ol>
+      <div class="fit" data-sc-in data-sc-stagger="70">
+        <div><h3 class="eyebrow">Who it’s for</h3><p>Owner-run service businesses, usually three to thirty people, where the owner is still close to the work.</p></div>
+        <div><h3 class="eyebrow">Where we work</h3><p>Online, from Toronto, and on-site when the work needs someone in the room.</p></div>
+        <div><h3 class="eyebrow">What we don’t sell</h3><p>Decks, workshops, or tools that don’t move the goal you came to us with.</p></div>
       </div>
     </div>
   </section>
@@ -297,31 +314,36 @@
   <!-- 4 · The deal (light). Pinned, short. The line draws as you scroll. -->
   <section class="deal light" data-sc-act="pin" data-sc-span="1.7">
     <div data-sc-stage>
-      <div class="wrap deal__grid">
-        <div>
-          <h2 class="h2" data-sc-cue="0 1 0 0">We only do well when you do.</h2>
-          <ul class="deal__terms" data-sc-cue="0 1 0 0">
-            <li><b>A base fee for the build</b>It covers the work itself. Half up front, half once it’s running.</li>
-            <li><b>A bonus tied to your number</b>Before we start, we agree on one number and where it sits today. Ninety days after launch, we measure it again.</li>
-            <li><b>Most of the risk sits with us</b>The bonus is paid only on results above that starting line. If the number doesn’t move, you’ve paid the base and nothing more. No retainer.</li>
-          </ul>
+      <div class="wrap deal__inner">
+        <div class="sec-head" data-sc-cue="0 1 0 0">
+          <h2 class="h2">Low cost to start. We earn more only when you do.</h2>
         </div>
-        <figure>
-          <svg class="chart" viewBox="0 0 720 360" role="img" aria-label="Illustration: a flat starting line, a build period covered by the base fee, then a line rising above the starting line. The bonus is earned only on the area above the starting line.">
-            <line class="axis" x1="20" y1="300" x2="700" y2="300"/>
-            <rect class="build" x="230" y="40" width="170" height="260"/>
-            <text x="315" y="64" text-anchor="middle" class="t-strong">Build</text>
-            <text x="315" y="84" text-anchor="middle">base fee</text>
-            <path class="gain" d="M400 220 C 480 214, 560 160, 690 108 L 690 220 Z"/>
-            <line class="base" x1="20" y1="220" x2="700" y2="220"/>
-            <text x="24" y="246">Starting line, agreed up front</text>
-            <path class="line" pathLength="1" d="M20 226 C 80 214, 140 232, 230 220 S 360 224, 400 220 C 480 214, 560 160, 690 108"/>
-            <text class="lbl-gain t-strong" x="690" y="180" text-anchor="end">Bonus only here</text>
-            <text x="230" y="326" text-anchor="middle">Start</text>
-            <text x="690" y="326" text-anchor="end">Day 90</text>
-          </svg>
-          <figcaption class="chart-note">An illustration. Your real number and starting line come from your business.</figcaption>
-        </figure>
+        <div class="deal__grid">
+          <ul class="deal__terms" data-sc-cue="0 1 0 0">
+            <li><span class="n">1</span><b>A base fee that covers our costs</b><span>It pays for the build, not our margin. Half up front, half once it’s running.</span></li>
+            <li><span class="n">2</span><b>A bonus only if your number moves</b><span>Before we start, we agree on one number and where it sits today. Ninety days after launch, we measure it again.</span></li>
+            <li><span class="n">3</span><b>Most of the risk is ours</b><span>If the number goes up, we share in the gain. If it doesn’t, you’ve paid the base fee and nothing more. No retainer.</span></li>
+          </ul>
+          <figure>
+            <svg class="chart" viewBox="0 0 720 340" role="img" aria-label="Illustration: during the build, your number sits at today’s level and you pay only the base fee. After launch the number rises above today’s level, and the bonus comes only from that gain, measured at day 90.">
+              <rect class="build" x="40" y="30" width="190" height="260"/>
+              <text x="135" y="58" text-anchor="middle" class="t-strong">Build</text>
+              <text x="135" y="78" text-anchor="middle">base fee only</text>
+              <line class="axis" x1="40" y1="290" x2="700" y2="290"/>
+              <path class="gain" d="M230 210 C 330 204, 450 170, 690 92 L 690 210 Z"/>
+              <line class="base" x1="40" y1="210" x2="700" y2="210"/>
+              <text x="246" y="236">Where your number sits today</text>
+              <path class="line" pathLength="1" d="M40 212 C 100 206, 160 216, 230 210 C 330 204, 450 170, 690 92"/>
+              <text class="lbl-gain t-strong" x="676" y="176" text-anchor="end">Your gain</text>
+              <text class="lbl-gain" x="676" y="196" text-anchor="end">the bonus comes only from here</text>
+              <line class="tick" x1="230" y1="290" x2="230" y2="296"/>
+              <text x="40" y="318">Start</text>
+              <text x="230" y="318" text-anchor="middle">Launch</text>
+              <text x="690" y="318" text-anchor="end">Day 90</text>
+            </svg>
+            <figcaption class="chart-note">An illustration. Your real number and starting point come from your business.</figcaption>
+          </figure>
+        </div>
       </div>
     </div>
   </section>
