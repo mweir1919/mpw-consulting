@@ -41,3 +41,11 @@ He also said the alignment was off and some scroll sections ran too long. v2 put
 ## Shipping it (after a yes)
 
 Port into the Next.js app as the homepage. Keep the brand tokens already in `app/globals.css`. Load the scroll engine (`scrollcraft.js`/`.css`, MIT, Nate Herk) on the homepage only. Retire `/approach` and unlink `/report` and `/calculator`, which were built for trades. Then check it on a real iPhone before cutover.
+
+## Added 2026-10-17 (round 3)
+
+- Nav: About and Contact in the bar (hidden on phones, repeated in the footer).
+- "Send a note" beside Book a call in the hero and the close, pointing at the contact form.
+- "Where we work: online, from Toronto, and on-site when the work needs someone in the room."
+- Diagnose step ends "If AI isn’t the right tool for it, we’ll say so."
+- Port plan: keep /about and /contact, retire /approach (How the work runs replaces it).
