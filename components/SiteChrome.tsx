@@ -14,7 +14,6 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
         <div className="wrap footer-bar">
           <p>{site.name}</p>
           <div className="footer-links">
-            <Link href="/approach">Approach</Link>
             <Link href="/about">About</Link>
             <Link href="/contact">Contact</Link>
             <Link href="/privacy">Privacy</Link>
