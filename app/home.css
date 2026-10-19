@@ -222,4 +222,5 @@
   .hm-reveal-ready [data-reveal] { opacity: 1; transform: none; transition: none; }
   .hm-chart .line { stroke-dashoffset: 0; }
   .hm-chart .gain, .hm-chart .lbl-gain { opacity: 1; }
+  .hm-goal-slot > span { transition: none; }
 }
