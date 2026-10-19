@@ -26,12 +26,20 @@ export function Pin({
       return { node, from: from || 0, to: Number.isFinite(to) ? to : null };
     });
 
+    // The stage sticks just under the site's sticky nav, so pinning starts on the first scroll.
+    const nav = document.querySelector<HTMLElement>(".nav");
+    let navH = 0;
+    const measure = () => {
+      navH = nav?.offsetHeight ?? 0;
+      document.documentElement.style.setProperty("--hm-nav", `${navH}px`);
+    };
+
     let frame = 0;
     const update = () => {
       frame = 0;
       const rect = el.getBoundingClientRect();
-      const travel = Math.max(rect.height - window.innerHeight, 1);
-      const p = Math.min(1, Math.max(0, -rect.top / travel));
+      const travel = Math.max(rect.height - (window.innerHeight - navH), 1);
+      const p = Math.min(1, Math.max(0, (navH - rect.top) / travel));
       el.style.setProperty("--p", p.toFixed(4));
       for (const c of cues) {
         const fadeIn = c.from <= 0 ? 1 : (p - c.from) / FADE;
@@ -42,13 +50,18 @@ export function Pin({
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
+    const onResize = () => {
+      measure();
+      onScroll();
+    };
 
+    measure();
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
       if (frame) cancelAnimationFrame(frame);
     };
   }, []);

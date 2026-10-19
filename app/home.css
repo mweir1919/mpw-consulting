@@ -39,7 +39,7 @@
 
 /* pinned sections */
 .hm-pin { position: relative; }
-.hm-pin-stage { position: sticky; top: 0; height: 100svh; display: grid; align-items: center; overflow: hidden; }
+.hm-pin-stage { position: sticky; top: var(--hm-nav, 0px); height: calc(100svh - var(--hm-nav, 0px)); display: grid; align-items: center; overflow: hidden; }
 
 /* 1 · hero */
 .hm-hero { background: var(--navy); color: var(--hm-ink); }
@@ -51,7 +51,7 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   mix-blend-mode: overlay;
 }
-.hm-hero .wrap { position: relative; z-index: 1; padding-top: 3rem; }
+.hm-hero .wrap { position: relative; z-index: 1; }
 .hm-hero h1 { font-size: clamp(2.4rem, 1.3rem + 4.4vw, 5.4rem); line-height: 1.04; letter-spacing: -0.025em; max-width: none; }
 .hm-goal-slot { display: grid; min-height: 2.15em; }
 .hm-goal-slot > span {
@@ -93,11 +93,11 @@
   border-radius: 6px;
   padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 2.5vw, 1.75rem);
   display: grid;
-  align-content: center;
+  align-content: start;
   justify-items: center;
   text-align: center;
   gap: 0.85rem;
-  min-height: 12rem;
+  min-height: 13.5rem;
   box-shadow: 0 1px 2px rgb(11 31 58 / 0.04), 0 12px 28px -18px rgb(11 31 58 / 0.25);
 }
 .hm-who { font: 600 0.8rem/1.2 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-deep); }
@@ -139,7 +139,7 @@
 }
 .hm-stage-card h3 { font-size: clamp(1.4rem, 1.2rem + 0.5vw, 1.7rem); letter-spacing: -0.01em; }
 .hm-stage-card p { color: var(--hm-ink-soft); line-height: 1.6; max-width: 30ch; }
-.hm-stage-card .hm-eyebrow { margin-top: 0.35rem; }
+.hm-stage-card h3 { margin-top: -0.1rem; }
 .hm-fit {
   margin-top: clamp(3rem, 7vh, 4.5rem);
   padding-top: clamp(2rem, 5vh, 2.75rem);
@@ -153,7 +153,7 @@
 .hm-fit p { margin: 0.75rem auto 0; line-height: 1.6; max-width: 32ch; color: var(--hm-ink-soft); }
 
 /* 4 · the deal (light): the line draws as you scroll */
-.hm-deal .wrap { padding-top: 4rem; }
+.hm-deal .wrap { padding-block: 1rem; }
 .hm-deal-grid { display: grid; grid-template-columns: minmax(0, 23rem) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; margin-top: clamp(1.75rem, 4.5vh, 2.75rem); }
 .hm-terms { list-style: none; display: grid; gap: 1.35rem; }
 .hm-terms li { display: grid; grid-template-columns: 2rem 1fr; column-gap: 0.85rem; line-height: 1.55; color: var(--muted); }

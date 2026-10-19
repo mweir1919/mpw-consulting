@@ -13,13 +13,13 @@ export const metadata: Metadata = {
     "MPW Consulting helps owner-run businesses put AI to work on the goals they already have: more customers, hours back, faster turnaround and fewer dropped balls.",
 };
 
-// Each goal holds for about two thirds of a screen; the last one fades in and stays.
+// The first scroll starts the swap; each goal holds for about two thirds of a screen, and the last one stays.
 const heroGoals: [string, string][] = [
-  ["more repeat customers.", "0 0.19"],
-  ["my evenings back.", "0.16 0.36"],
-  ["quotes out the same day.", "0.33 0.53"],
-  ["fewer no-shows.", "0.5 0.7"],
-  ["to stop chasing invoices.", "0.67"],
+  ["more repeat customers.", "0 0.05"],
+  ["my evenings back.", "0.02 0.25"],
+  ["quotes out the same day.", "0.22 0.45"],
+  ["fewer no-shows.", "0.42 0.65"],
+  ["to stop chasing invoices.", "0.62"],
 ];
 
 const stages = [
@@ -52,11 +52,11 @@ const fit = [
 const terms = [
   {
     name: "A base fee that covers our costs",
-    line: "It pays for the build, not our margin. Half up front, half once it’s running.",
+    line: "It pays for the build itself, not our margin, so getting started stays affordable.",
   },
   {
     name: "A bonus only if your number moves",
-    line: "Before we start, we agree on one number and where it sits today. Ninety days after launch, we measure it again.",
+    line: "Before we start, we agree on one number, where it sits today, and when we’ll measure it again.",
   },
   {
     name: "Most of the risk is ours",
@@ -116,9 +116,9 @@ export default function HomePage() {
               <li key={s.name} className="hm-stage" data-reveal style={{ "--i": i } as React.CSSProperties}>
                 <span className="hm-stage-num">{i + 1}</span>
                 <div className="hm-stage-card">
+                  <span className="hm-eyebrow">{s.tag}</span>
                   <h3>{s.name}</h3>
                   <p>{s.line}</p>
-                  <span className="hm-eyebrow">{s.tag}</span>
                 </div>
               </li>
             ))}
@@ -154,11 +154,11 @@ export default function HomePage() {
                 className="hm-chart"
                 viewBox="0 0 720 340"
                 role="img"
-                aria-label="Illustration: during the build, your number sits at today’s level and you pay only the base fee. After launch the number rises above today’s level, and the bonus comes only from that gain, measured at day 90."
+                aria-label="Illustration: during the build, your number sits at today’s level and you pay only the base fee. After launch the number rises above today’s level, and the bonus comes only from that gain, measured at the point we agree on."
               >
-                <rect className="build" x="40" y="30" width="190" height="260" />
-                <text x="135" y="58" textAnchor="middle" className="strong">Build</text>
-                <text x="135" y="78" textAnchor="middle">base fee only</text>
+                <rect className="build" x="40" y="210" width="190" height="80" />
+                <text x="135" y="244" textAnchor="middle" className="strong">Build</text>
+                <text x="135" y="264" textAnchor="middle">base fee only</text>
                 <line className="axis" x1="40" y1="290" x2="700" y2="290" />
                 <path className="gain" d="M230 210 C 330 204, 450 170, 690 92 L 690 210 Z" />
                 <line className="base" x1="40" y1="210" x2="700" y2="210" />
@@ -169,7 +169,7 @@ export default function HomePage() {
                 <line className="axis" x1="230" y1="290" x2="230" y2="296" />
                 <text x="40" y="318">Start</text>
                 <text x="230" y="318" textAnchor="middle">Launch</text>
-                <text x="690" y="318" textAnchor="end">Day 90</text>
+                <text x="690" y="318" textAnchor="end">Measured</text>
               </svg>
               <figcaption>An illustration. Your real number and starting point come from your business.</figcaption>
             </figure>
