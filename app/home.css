@@ -43,7 +43,8 @@
 
 /* 1 · hero */
 .hm-hero { background: var(--navy); color: var(--hm-ink); }
-.hm-hero .hm-pin-stage::after {
+.hm-hero-stage { position: relative; min-height: calc(92svh - var(--hm-nav, 0px)); display: grid; align-items: center; overflow: hidden; padding-block: 4rem; }
+.hm-hero-stage::after {
   content: "";
   pointer-events: none;
   position: absolute;
@@ -62,7 +63,10 @@
   text-decoration-thickness: 2px;
   text-underline-offset: 0.16em;
   text-decoration-color: rgba(196, 163, 90, 0.55);
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
+.hm-goal-slot > span.is-on { opacity: 1; }
 .hm-hero-sub { margin-top: 1.75rem !important; font-family: var(--font-display); font-size: clamp(1.25rem, 1rem + 0.9vw, 1.7rem); line-height: 1.3; max-width: 34ch; }
 .hm-hero-note { margin-top: 0.75rem !important; color: var(--hm-ink-soft); max-width: 44ch; line-height: 1.6; }
 .hm-hero .btn-row { margin-top: 1.75rem; }

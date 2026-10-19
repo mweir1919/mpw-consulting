@@ -4,6 +4,7 @@ import { BookCall } from "@/components/BookCall";
 import { Pin } from "@/components/home/Pin";
 import { Reveal } from "@/components/home/Reveal";
 import { GoalTabs } from "@/components/home/GoalTabs";
+import { HeroGoals } from "@/components/home/HeroGoals";
 import { site } from "@/lib/site";
 import "./home.css";
 
@@ -13,13 +14,13 @@ export const metadata: Metadata = {
     "MPW Consulting helps owner-run businesses put AI to work on the goals they already have: more customers, hours back, faster turnaround and fewer dropped balls.",
 };
 
-// The first scroll starts the swap; each goal holds for about two thirds of a screen, and the last one stays.
-const heroGoals: [string, string][] = [
-  ["more repeat customers.", "0 0.05"],
-  ["my evenings back.", "0.02 0.25"],
-  ["quotes out the same day.", "0.22 0.45"],
-  ["fewer no-shows.", "0.42 0.65"],
-  ["to stop chasing invoices.", "0.62"],
+// The hero rotates through these on a timer, in this order.
+const heroGoals = [
+  "more repeat customers.",
+  "my evenings back.",
+  "quotes out the same day.",
+  "fewer no-shows.",
+  "to stop chasing invoices.",
 ];
 
 const stages = [
@@ -69,28 +70,24 @@ export default function HomePage() {
     <div className="hm">
       <Reveal />
 
-      <Pin span={3.2} className="hm-hero">
-        <div className="wrap">
-          <h1>
-            This year I want
-            <span className="hm-goal-slot">
-              {heroGoals.map(([goal, cue], i) => (
-                <span key={goal} data-cue={cue} aria-hidden={i > 0 || undefined} style={{ opacity: i === 0 ? 1 : 0 }}>
-                  {goal}
-                </span>
-              ))}
-            </span>
-          </h1>
-          <p className="hm-hero-sub">Name yours. We’ll build what moves it.</p>
-          <p className="hm-hero-note">We help owner-run businesses put AI to work on the goals they already have.</p>
-          <div className="btn-row">
-            <BookCall className="btn btn-gold" />
-            <Link className="btn btn-ghost" href="/contact">
-              Send a note
-            </Link>
+      <section className="hm-hero">
+        <div className="hm-hero-stage">
+          <div className="wrap">
+            <h1>
+              This year I want
+              <HeroGoals goals={heroGoals} />
+            </h1>
+            <p className="hm-hero-sub">Name yours. We’ll build what moves it.</p>
+            <p className="hm-hero-note">We help owner-run businesses put AI to work on the goals they already have.</p>
+            <div className="btn-row">
+              <BookCall className="btn btn-gold" />
+              <Link className="btn btn-ghost" href="/contact">
+                Send a note
+              </Link>
+            </div>
           </div>
         </div>
-      </Pin>
+      </section>
 
       <section className="hm-goals hm-light">
         <div className="wrap">
