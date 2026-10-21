@@ -217,6 +217,9 @@
 .hm-cards .hm-card-lead { color: var(--navy) !important; }
 .hm-stages-plain .hm-card-lead { color: var(--hm-ink) !important; }
 .hm-stages-plain .hm-stage { align-content: stretch; }
+.hm-cards h3 { color: var(--gold-deep); }
+.hm-stages-plain .hm-stage-card h3, .hm-fit-titled h3 { color: var(--gold); }
+.hm-fit-titled h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.4rem, 1.2rem + 0.5vw, 1.7rem); letter-spacing: -0.01em; }
 .hm-stages-plain .hm-stage-card { gap: 0.6rem; }
 
 @media (max-width: 860px) {

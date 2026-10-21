@@ -107,10 +107,10 @@ export default function AboutPage() {
               </li>
             ))}
           </ul>
-          <div className="hm-fit">
+          <div className="hm-fit hm-fit-titled">
             {fit.map((f, i) => (
               <div key={f.name} data-reveal style={{ "--i": i } as React.CSSProperties}>
-                <h3 className="hm-eyebrow">{f.name}</h3>
+                <h3>{f.name}</h3>
                 <p>{f.line}</p>
               </div>
             ))}
