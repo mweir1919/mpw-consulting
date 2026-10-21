@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AnalyticsChoice } from "@/components/Analytics";
 import { site } from "@/lib/site";
+import "../home.css";
 
 export const metadata: Metadata = {
   title: "Privacy",
@@ -12,10 +13,13 @@ const email = site.email || "hello@mpwconsulting.ca";
 export default function PrivacyPage() {
   return (
     <>
-      <header className="page-head page-field">
-        <div className="wrap">
-          <h1>Privacy</h1>
-          <p>What we collect, why we collect it, and how to reach us about it.</p>
+      <header className="hm">
+        <div className="hm-about-hero">
+          <div className="wrap">
+            <span className="hm-eyebrow">Privacy</span>
+            <h1>What we collect, and why.</h1>
+            <p>And how to reach us about it.</p>
+          </div>
         </div>
       </header>
       <section className="wrap prose">

@@ -43,14 +43,20 @@ export function ContactForm() {
 
   return (
     <form className="contact-form" onSubmit={onSubmit}>
-      <label htmlFor="name">Name</label>
-      <input id="name" name="name" autoComplete="name" required />
+      <div className="field">
+        <label htmlFor="name">Name</label>
+        <input id="name" name="name" autoComplete="name" required />
+      </div>
 
-      <label htmlFor="business">Business</label>
-      <input id="business" name="business" autoComplete="organization" required />
+      <div className="field">
+        <label htmlFor="business">Business</label>
+        <input id="business" name="business" autoComplete="organization" required />
+      </div>
 
-      <label htmlFor="email">Email</label>
-      <input id="email" name="email" type="email" autoComplete="email" required />
+      <div className="field field-wide">
+        <label htmlFor="email">Email</label>
+        <input id="email" name="email" type="email" autoComplete="email" required />
+      </div>
 
       <div className="hp" aria-hidden="true" hidden>
         <label htmlFor="company_site">Website</label>
@@ -58,8 +64,7 @@ export function ContactForm() {
       </div>
 
       <fieldset className="focus-set">
-        <legend>What do you want to move?</legend>
-        <p className="focus-hint">Pick any that apply.</p>
+        <legend>What do you want to move? Pick any.</legend>
         <div className="focus-chips">
           {FOCUS.map((f) => (
             <label key={f} className="chip">
@@ -70,8 +75,10 @@ export function ContactForm() {
         </div>
       </fieldset>
 
-      <label htmlFor="note">What’s the goal, and what’s in the way?</label>
-      <textarea id="note" name="note" required />
+      <div className="field field-wide">
+        <label htmlFor="note">What’s the goal, and what’s in the way?</label>
+        <textarea id="note" name="note" rows={3} required />
+      </div>
 
       <button className="btn btn-navy" type="submit" disabled={status.kind === "sending"}>
         {status.kind === "sending" ? "Sending…" : "Send a note"}
