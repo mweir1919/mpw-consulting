@@ -13,7 +13,8 @@ type Body = {
   company_site?: string;
 };
 
-const FOCUS = ["Growth", "Capacity", "Speed", "Unlock", "Quality"];
+// Must match the chips in components/ContactForm.tsx.
+const FOCUS = ["More customers", "Hours back", "Faster turnaround", "Fewer dropped balls", "Something new"];
 
 const hits = new Map<string, number[]>();
 

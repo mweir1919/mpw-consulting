@@ -1,0 +1,79 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
+// A tall section whose stage sticks while you scroll through it.
+// Sets --p (0 to 1) on the section, and fades children marked data-cue:
+// "from to" fades in at `from` and out at `to`; "from" alone fades in and holds.
+// With `hold`, progress never goes backwards, so whatever has played stays put.
+const FADE = 0.03;
+
+export function Pin({
+  span,
+  hold = false,
+  className,
+  children,
+}: {
+  span: number;
+  hold?: boolean;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const cues = Array.from(el.querySelectorAll<HTMLElement>("[data-cue]")).map((node) => {
+      const [from, to] = (node.dataset.cue || "").split(/\s+/).map(Number);
+      return { node, from: from || 0, to: Number.isFinite(to) ? to : null };
+    });
+
+    // The stage sticks just under the site's sticky nav, so pinning starts on the first scroll.
+    const nav = document.querySelector<HTMLElement>(".nav");
+    let navH = 0;
+    const measure = () => {
+      navH = nav?.offsetHeight ?? 0;
+      document.documentElement.style.setProperty("--hm-nav", `${navH}px`);
+    };
+
+    let frame = 0;
+    let reached = 0;
+    const update = () => {
+      frame = 0;
+      const rect = el.getBoundingClientRect();
+      const travel = Math.max(rect.height - (window.innerHeight - navH), 1);
+      let p = Math.min(1, Math.max(0, (navH - rect.top) / travel));
+      if (hold) p = reached = Math.max(reached, p);
+      el.style.setProperty("--p", p.toFixed(4));
+      for (const c of cues) {
+        const fadeIn = c.from <= 0 ? 1 : (p - c.from) / FADE;
+        const fadeOut = c.to === null ? 1 : (c.to - p) / FADE;
+        c.node.style.opacity = Math.min(1, Math.max(0, Math.min(fadeIn, fadeOut))).toFixed(3);
+      }
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    const onResize = () => {
+      measure();
+      onScroll();
+    };
+
+    measure();
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [hold]);
+
+  return (
+    <section ref={ref} className={`hm-pin ${className ?? ""}`} style={{ height: `${(span + 1) * 100}svh` }}>
+      <div className="hm-pin-stage">{children}</div>
+    </section>
+  );
+}

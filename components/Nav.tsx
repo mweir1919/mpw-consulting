@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { BookCall } from "@/components/BookCall";
 
 const links = [
-  { href: "/approach", label: "Approach" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

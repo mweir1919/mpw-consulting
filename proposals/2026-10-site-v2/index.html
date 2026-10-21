@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MPW Consulting Site</title>
+<meta name="description" content="MPW Consulting builds what moves an owner-run business toward its own goal: more customers, hours back, faster work, fewer dropped balls.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+  /* Layout: one shared container (.wrap, 72rem) so every section's left edge lines up with the logo.
+     Sections alternate navy and light, like the live site, with a soft shadow at each seam. */
+  :root {
+    color-scheme: dark;
+    --sc-canvas:     #071526;
+    --sc-surface:    #0b1f3a;
+    --sc-ink:        #f3efe6;
+    --sc-ink-soft:   #a8b2bf;
+    --sc-accent:     #c9a85e;
+    --sc-accent-ink: #071526;
+    --sc-font-display: "Libre Caslon Text", "Times New Roman", serif;
+    --sc-font-text:    "Public Sans", system-ui, sans-serif;
+    --line: rgba(243, 239, 230, 0.14);
+    --paper: #f3f4f1;
+    --card: #fbfbfa;
+    --navy: #0b1f3a;
+    --muted: #4a5a6a;
+    --gold-deep: #a7863f;
+    --line-light: rgba(11, 31, 58, 0.12);
+    --page: 72rem;
+    --side: max(20px, env(safe-area-inset-left, 0px), 4vw);
+  }
+  body { background: var(--sc-canvas); color: var(--sc-ink); }
+  img { display: block; }
+  ul, ol { padding: 0; margin: 0; }
+  .wrap { width: 100%; max-width: calc(var(--page) + 2 * var(--side)); margin-inline: auto; padding-inline: var(--side); }
+
+  .btn {
+    display: inline-flex; align-items: center;
+    font: 600 0.95rem/1 var(--sc-font-text); letter-spacing: 0.01em;
+    padding: 0.85em 1.25em; border-radius: 3px; text-decoration: none; white-space: nowrap;
+    background: var(--sc-accent); color: var(--sc-accent-ink);
+    transition: transform 140ms var(--sc-ease-out), background-color 160ms var(--sc-ease-out);
+  }
+  .btn:hover { background: #d8b96d; color: var(--sc-accent-ink); }
+  .btn:active { transform: translateY(1px); }
+  :is(a, button):focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 3px; }
+  .btn--sm { padding: 0.7em 1em; font-size: 0.875rem; }
+  .btn--ghost { background: transparent; color: var(--sc-ink); box-shadow: inset 0 0 0 1px rgba(243, 239, 230, 0.35); }
+  .btn--ghost:hover { background: rgba(243, 239, 230, 0.08); color: var(--sc-ink); }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+  .h2 { font-family: var(--sc-font-display); font-weight: 400; font-size: clamp(1.9rem, 1.3rem + 2vw, 3rem); line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
+  .lede { color: var(--sc-ink-soft); font-size: clamp(1.05rem, 0.98rem + 0.3vw, 1.2rem); line-height: 1.6; max-width: 46ch; }
+  .eyebrow { font: 600 0.78rem/1 var(--sc-font-text); letter-spacing: 0.12em; text-transform: uppercase; color: var(--sc-accent); }
+
+  /* light bands */
+  .light { position: relative; z-index: 1; background: var(--paper); color: var(--navy);
+    box-shadow: 0 -8px 14px -10px rgb(0 0 0 / 0.35), 0 8px 14px -10px rgb(0 0 0 / 0.35); }
+  .light .lede { color: var(--muted); }
+  .light .eyebrow { color: var(--gold-deep); }
+
+  /* bar: solid, so it reads over light and dark bands */
+  .bar { position: fixed; inset: 0 0 auto 0; z-index: 20; padding-top: env(safe-area-inset-top, 0px);
+    background: rgb(7 21 38 / 0.92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line); }
+  .bar .wrap { display: flex; align-items: center; justify-content: space-between; padding-block: 14px; }
+  .mark { font-family: var(--sc-font-display); font-size: 1.15rem; text-decoration: none; color: var(--sc-ink); }
+  .mark b { color: var(--sc-accent); font-weight: 400; }
+  .nav { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 1.75rem); }
+  .nav a:not(.btn) { color: var(--sc-ink-soft); text-decoration: none; font-size: 0.92rem; }
+  .nav a:not(.btn):hover { color: var(--sc-ink); }
+
+  /* 1 · hero: the goal line swaps as you scroll, and the last one holds */
+  .hero .sc-stage { display: grid; align-items: center; }
+  .hero__inner { position: relative; z-index: 2; }
+  .hero h1 { font-family: var(--sc-font-display); font-weight: 400; font-size: clamp(2.5rem, 1.3rem + 4.4vw, 5.4rem); line-height: 1.04; letter-spacing: -0.025em; }
+  .goal-slot { display: grid; min-height: 2.15em; }
+  .goal-slot > span { grid-area: 1 / 1; color: var(--sc-accent);
+    text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.16em; text-decoration-color: color-mix(in oklab, var(--sc-accent) 55%, transparent);
+    max-width: 14ch; }
+  .hero__sub { margin-top: var(--sc-6); font-family: var(--sc-font-display); font-size: clamp(1.25rem, 1rem + 0.9vw, 1.7rem); line-height: 1.3; max-width: 34ch; text-wrap: balance; }
+  .hero__note { margin-top: var(--sc-3); color: var(--sc-ink-soft); max-width: 44ch; line-height: 1.6; }
+  .hero__cta { margin-top: var(--sc-6); }
+
+  /* 2 · goals (light): pick one, see what the work could look like */
+  .goals { padding-block: clamp(4.5rem, 11vh, 7.5rem); }
+  .goals__head { display: grid; justify-items: center; text-align: center; gap: 1rem; }
+  .goals__head > * { margin: 0; }
+  .goals__head .lede { margin-inline: auto; }
+  .tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: clamp(2rem, 5vh, 2.75rem); }
+  .tab { all: unset; cursor: pointer; padding: 0.7rem 1.15rem; border-radius: 999px; border: 1px solid var(--line-light);
+    font: 500 1rem/1 var(--sc-font-text); color: var(--muted); background: transparent;
+    transition: background-color 160ms var(--sc-ease-out), color 160ms var(--sc-ease-out), border-color 160ms var(--sc-ease-out); }
+  .tab:hover { color: var(--navy); border-color: rgba(11, 31, 58, 0.3); }
+  .tab[aria-selected="true"] { background: var(--navy); border-color: var(--navy); color: var(--paper); }
+  .tab:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 3px; }
+  .panel { margin-top: clamp(1.75rem, 4vh, 2.5rem); }
+  .panel[hidden] { display: none; }
+  .examples { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); }
+  .examples li { background: var(--card); border: 1px solid var(--line-light); border-radius: 6px;
+    padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 2.5vw, 1.75rem);
+    display: grid; align-content: center; justify-items: center; text-align: center; gap: 0.85rem; min-height: 12rem;
+    box-shadow: 0 1px 2px rgb(11 31 58 / 0.04), 0 12px 28px -18px rgb(11 31 58 / 0.25); }
+  .examples .who { font: 600 0.8rem/1.2 var(--sc-font-text); letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-deep); }
+  .examples p { font-family: var(--sc-font-display); font-size: clamp(1.15rem, 1.05rem + 0.35vw, 1.35rem); line-height: 1.4; color: var(--navy); max-width: 24ch; text-wrap: balance; }
+  .count { margin-top: clamp(1.5rem, 3.5vh, 2rem); text-align: center; color: var(--muted); font-size: 1.05rem; line-height: 1.5; }
+  .count b { color: var(--navy); font-weight: 600; }
+  .goals__foot { margin-top: 0.6rem; text-align: center; color: var(--muted); font-size: 0.92rem; }
+
+  /* shared centred section head */
+  .sec-head { display: grid; justify-items: center; text-align: center; gap: 1rem; }
+  .sec-head > * { margin: 0; }
+  .sec-head .lede { margin-inline: auto; }
+
+  /* 3 · how it runs (navy): three stages on one track */
+  .runs { background: var(--navy); padding-block: clamp(4.5rem, 11vh, 7.5rem); }
+  .stages { list-style: none; position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); margin-top: clamp(2.5rem, 6vh, 3.5rem); }
+  .stages::before { content: ""; position: absolute; top: 1.5rem; left: 16.67%; right: 16.67%; height: 1px; background: rgba(201, 168, 94, 0.45); }
+  .stage { position: relative; display: grid; justify-items: center; align-content: start; gap: 1.1rem; text-align: center; }
+  .stage__num { width: 3rem; height: 3rem; border-radius: 50%; display: grid; place-items: center; background: var(--navy); border: 1.5px solid var(--sc-accent);
+    font-family: var(--sc-font-display); font-size: 1.25rem; color: var(--sc-accent); position: relative; z-index: 1; }
+  .stage__card { width: 100%; height: 100%; display: grid; align-content: start; justify-items: center; gap: 0.75rem;
+    padding: clamp(1.5rem, 3vw, 2.1rem) clamp(1.25rem, 2.5vw, 1.75rem); border: 1px solid var(--line); border-radius: 6px; background: rgba(243, 239, 230, 0.035); }
+  .stage__card h3 { font-family: var(--sc-font-display); font-weight: 400; font-size: clamp(1.4rem, 1.2rem + 0.5vw, 1.7rem); letter-spacing: -0.01em; margin: 0; }
+  .stage__card p { color: var(--sc-ink-soft); line-height: 1.6; max-width: 30ch; margin: 0; }
+  .stage__card .eyebrow { margin-top: 0.35rem; }
+  .fit { margin-top: clamp(3rem, 7vh, 4.5rem); padding-top: clamp(2rem, 5vh, 2.75rem); border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.25rem, 3vw, 2.5rem); text-align: center; }
+  .fit p { margin: 0.75rem auto 0; line-height: 1.6; max-width: 32ch; color: var(--sc-ink-soft); }
+
+  /* 4 · the deal (light): the line draws itself */
+  .deal [data-sc-stage] { background: var(--paper); }
+  .deal .sc-stage { display: grid; align-items: center; }
+  .deal__inner { padding-top: 64px; }
+  .deal .h2 { color: var(--navy); }
+  .deal__grid { display: grid; grid-template-columns: minmax(0, 23rem) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; margin-top: clamp(1.75rem, 4.5vh, 2.75rem); }
+  .deal__terms { list-style: none; display: grid; gap: 1.35rem; }
+  .deal__terms li { display: grid; grid-template-columns: 2rem 1fr; column-gap: 0.85rem; line-height: 1.55; color: var(--muted); }
+  .deal__terms .n { grid-row: span 2; width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid var(--gold-deep); color: var(--gold-deep); font: 400 0.95rem/1 var(--sc-font-display); }
+  .deal__terms b { color: var(--navy); font-weight: 600; }
+  .chart { width: 100%; height: auto; overflow: visible; }
+  .chart text { font-family: var(--sc-font-text); font-size: 15px; fill: var(--muted); }
+  .chart .t-strong { fill: var(--navy); font-weight: 600; }
+  .chart .base { stroke: var(--muted); stroke-dasharray: 5 6; stroke-width: 1.5; fill: none; }
+  .chart .build { fill: rgba(11, 31, 58, 0.06); }
+  .chart .tick { stroke: var(--line-light); stroke-width: 1; }
+  .chart .line { stroke: var(--gold-deep); stroke-width: 3; fill: none; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: calc(1 - min(1, var(--sc-p) * 1.5)); }
+  .chart .gain { fill: rgba(196, 163, 90, 0.3); opacity: clamp(0, calc((var(--sc-p) - 0.45) * 4), 1); }
+  .chart .lbl-gain { opacity: clamp(0, calc((var(--sc-p) - 0.55) * 4), 1); }
+  .chart .axis { stroke: var(--line-light); stroke-width: 1; }
+  .chart-note { margin-top: 0.75rem; font-size: 0.82rem; color: var(--muted); text-align: center; }
+
+  /* 5 · close (navy) */
+  .close { display: grid; align-items: center; }
+  .close::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(40rem 26rem at var(--sc-mx, 30%) var(--sc-my, 45%), rgba(201,168,94,.09), transparent 70%); }
+  .close__inner { position: relative; }
+  .close h2 { font-family: var(--sc-font-display); font-weight: 400; font-size: clamp(2.2rem, 1.3rem + 3.2vw, 4.2rem); line-height: 1.04; letter-spacing: -0.025em; max-width: 16ch; text-wrap: balance; }
+  .close p { margin-top: var(--sc-5); max-width: 42ch; color: var(--sc-ink-soft); line-height: 1.6; }
+  .close .btn-row { margin-top: var(--sc-6); }
+  .close .alt { display: block; margin-top: 1rem; font-size: 0.92rem; color: var(--sc-ink-soft); user-select: all; }
+  .foot { position: absolute; left: 0; right: 0; bottom: 0; border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--sc-ink-soft); }
+  .foot .wrap { display: flex; justify-content: space-between; gap: 1rem; padding-block: 16px calc(16px + env(safe-area-inset-bottom, 0px)); }
+  .foot a { color: var(--sc-ink-soft); }
+  .foot nav { display: flex; gap: 1.25rem; }
+
+  @media (max-width: 860px) {
+    .nav a:not(.btn) { display: none; }
+    .hero h1 { font-size: clamp(2.2rem, 1.4rem + 4vw, 3rem); }
+    .tabs { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scrollbar-width: none;
+      margin-inline: calc(-1 * var(--side)); padding-inline: var(--side); padding-block: 4px; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab { white-space: nowrap; font-size: 0.95rem; padding: 0.65rem 1rem; }
+    .examples { grid-template-columns: 1fr; }
+    .examples li { min-height: 0; }
+    .stages { grid-template-columns: 1fr; gap: 1.25rem; }
+    .stages::before { top: 1.5rem; bottom: 1.5rem; left: 1.5rem; right: auto; width: 1px; height: auto; }
+    .stage { grid-template-columns: 3rem 1fr; justify-items: stretch; text-align: left; gap: 1rem; }
+    .stage__card { justify-items: start; }
+    .fit { grid-template-columns: 1fr; text-align: left; }
+    .fit p { margin-left: 0; }
+    .deal__grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 1rem; }
+    .deal__terms { gap: 0.7rem; font-size: 0.9rem; }
+    .deal .h2 { font-size: 1.6rem; }
+    .chart text { font-size: 30px; }
+    .foot .wrap { flex-direction: column; gap: 0.3rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chart .line { stroke-dashoffset: 0; }
+    .chart .gain, .chart .lbl-gain { opacity: 1; }
+  }
+</style>
+
+</head>
+<body>
+<span data-sc-progress></span>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="mark" href="#top">MPW <b>Consulting</b></a>
+    <nav class="nav" aria-label="Main">
+      <a href="https://mpwconsulting.ca/about">About</a>
+      <a href="https://mpwconsulting.ca/contact">Contact</a>
+      <a class="btn btn--sm" href="https://calendly.com/max-mpwconsulting/30min">Book a call</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 1 · Hero. Complete at rest: the first goal, the promise and the button are all on screen at p = 0.
+       Scroll only swaps the goal. Each goal holds for about two thirds of a screen; the last one fades in and stays. -->
+  <section class="hero" data-sc-act="pin" data-sc-span="3.2" data-sc-drift="#071526">
+    <div data-sc-stage>
+      <div class="wrap hero__inner">
+        <h1>This year I want
+          <span class="goal-slot">
+            <span data-sc-cue="0 0.19 0 0.2">more repeat customers.</span>
+            <span data-sc-cue="0.16 0.36 0.2 0.2" aria-hidden="true">my evenings back.</span>
+            <span data-sc-cue="0.33 0.53 0.2 0.2" aria-hidden="true">quotes out the same&nbsp;day.</span>
+            <span data-sc-cue="0.5 0.7 0.2 0.2" aria-hidden="true">fewer no-shows.</span>
+            <span data-sc-cue="0.67" aria-hidden="true">to stop chasing invoices.</span>
+          </span>
+        </h1>
+        <p class="hero__sub">Name yours. We’ll build what moves it.</p>
+        <p class="hero__note">We help owner-run businesses put AI to work on the goals they already have.</p>
+        <div class="hero__cta btn-row"><a class="btn" href="https://calendly.com/max-mpwconsulting/30min">Book a call</a><a class="btn btn--ghost" href="https://mpwconsulting.ca/contact">Send a note</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Goals (light). Interactive, not scroll-driven. -->
+  <section class="goals light">
+    <div class="wrap">
+      <div class="goals__head" data-sc-in>
+        <h2 class="h2">Start with the goal, not the tool.</h2>
+        <p class="lede">Most owners we talk to want one of these five things. Pick one to see what the work could look like.</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Goals">
+        <button class="tab" role="tab" id="t-growth" aria-controls="p-growth" aria-selected="true">More customers</button>
+        <button class="tab" role="tab" id="t-hours" aria-controls="p-hours" aria-selected="false" tabindex="-1">Hours back</button>
+        <button class="tab" role="tab" id="t-speed" aria-controls="p-speed" aria-selected="false" tabindex="-1">Faster turnaround</button>
+        <button class="tab" role="tab" id="t-quality" aria-controls="p-quality" aria-selected="false" tabindex="-1">Fewer dropped balls</button>
+        <button class="tab" role="tab" id="t-unlock" aria-controls="p-unlock" aria-selected="false" tabindex="-1">Something new</button>
+      </div>
+
+      <div class="panel" role="tabpanel" id="p-growth" aria-labelledby="t-growth">
+        <ul class="examples">
+          <li><span class="who">Salon or studio</span><p>Clients who are overdue for a visit get a personal note with a link to book.</p></li>
+          <li><span class="who">Landscaping</span><p>Every quote gets a follow-up on day two, five and ten, so none go cold.</p></li>
+          <li><span class="who">Cleaning company</span><p>Happy clients are asked for a review the day after a clean, while it’s fresh.</p></li>
+        </ul>
+        <p class="count"><b>How we’d measure it:</b> new and returning customers, bookings and quotes won.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="p-hours" aria-labelledby="t-hours" hidden>
+        <ul class="examples">
+          <li><span class="who">Bookkeeping office</span><p>Client documents are requested, renamed and filed without anyone chasing them.</p></li>
+          <li><span class="who">Trades</span><p>Invoices are drafted from the job notes, ready for you to check and send.</p></li>
+          <li><span class="who">Studio</span><p>Reschedules happen by text instead of phone tag.</p></li>
+        </ul>
+        <p class="count"><b>How we’d measure it:</b> hours a week that you, or someone on your team, no longer spend on it.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="p-speed" aria-labelledby="t-speed" hidden>
+        <ul class="examples">
+          <li><span class="who">Contractor</span><p>Quotes go out the same day, built from a site visit and a few photos.</p></li>
+          <li><span class="who">Agency or office</span><p>New clients get set up through one form instead of six emails.</p></li>
+          <li><span class="who">Salon or studio</span><p>A cancelled appointment is offered to the waitlist within the hour.</p></li>
+        </ul>
+        <p class="count"><b>How we’d measure it:</b> the time from request to done.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="p-quality" aria-labelledby="t-quality" hidden>
+        <ul class="examples">
+          <li><span class="who">Trades</span><p>Every job ends with the same checklist, so fewer crews get called back.</p></li>
+          <li><span class="who">Studio</span><p>Reminders that clients actually reply to, so more of them show up.</p></li>
+          <li><span class="who">Any front desk</span><p>Every inquiry gets an owner and a next step, so nothing sits in an inbox.</p></li>
+        </ul>
+        <p class="count"><b>How we’d measure it:</b> no-shows, missed follow-ups and rework, using whatever you already track.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="p-unlock" aria-labelledby="t-unlock" hidden>
+        <ul class="examples">
+          <li><span class="who">Landscaping</span><p>A spring note to every past client that reads like you wrote each one yourself.</p></li>
+          <li><span class="who">Studio</span><p>Booking questions answered after hours, in your own words.</p></li>
+          <li><span class="who">Any local business</span><p>Your services and prices laid out so Google and AI assistants can recommend you.</p></li>
+        </ul>
+        <p class="count"><b>How we’d measure it:</b> what exists now that didn’t before, and what it brings in.</p>
+      </div>
+      <p class="goals__foot">These are examples, not packages. What we build for you starts from your goal and your numbers.</p>
+    </div>
+  </section>
+
+  <!-- 3 · How it runs, who it's for (navy). Plain flow. -->
+  <section class="runs" data-sc-drift="#0b1f3a">
+    <div class="wrap">
+      <div class="sec-head" data-sc-in>
+        <h2 class="h2">How the work runs</h2>
+        <p class="lede">Three steps from first call to something running in your business.</p>
+      </div>
+      <ol class="stages" data-sc-in data-sc-stagger="90">
+        <li class="stage"><span class="stage__num">1</span><div class="stage__card"><h3>Diagnose</h3><p>One conversation about your goal, what you already track and where things are stuck. If AI isn’t the right tool for it, we’ll say so.</p><span class="eyebrow">One conversation</span></div></li>
+        <li class="stage"><span class="stage__num">2</span><div class="stage__card"><h3>Build</h3><p>A short, fixed-scope project inside the tools you already use. You see how it works as we build it.</p><span class="eyebrow">Fixed scope</span></div></li>
+        <li class="stage"><span class="stage__num">3</span><div class="stage__card"><h3>Hand off</h3><p>It runs in your accounts, it’s documented, and your team knows how to use it. We’re not done until they do.</p><span class="eyebrow">Yours to keep</span></div></li>
+      </ol>
+      <div class="fit" data-sc-in data-sc-stagger="70">
+        <div><h3 class="eyebrow">Who it’s for</h3><p>Owner-run service businesses, usually three to thirty people, where the owner is still close to the work.</p></div>
+        <div><h3 class="eyebrow">Where we work</h3><p>Online, from Toronto, and on-site when the work needs someone in the room.</p></div>
+        <div><h3 class="eyebrow">What we don’t sell</h3><p>Decks, workshops, or tools that don’t move the goal you came to us with.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · The deal (light). Pinned, short. The line draws as you scroll. -->
+  <section class="deal light" data-sc-act="pin" data-sc-span="1.7">
+    <div data-sc-stage>
+      <div class="wrap deal__inner">
+        <div class="sec-head" data-sc-cue="0 1 0 0">
+          <h2 class="h2">Low cost to start. We earn more only when you do.</h2>
+        </div>
+        <div class="deal__grid">
+          <ul class="deal__terms" data-sc-cue="0 1 0 0">
+            <li><span class="n">1</span><b>A base fee that covers our costs</b><span>It pays for the build, not our margin. Half up front, half once it’s running.</span></li>
+            <li><span class="n">2</span><b>A bonus only if your number moves</b><span>Before we start, we agree on one number and where it sits today. Ninety days after launch, we measure it again.</span></li>
+            <li><span class="n">3</span><b>Most of the risk is ours</b><span>If the number goes up, we share in the gain. If it doesn’t, you’ve paid the base fee and nothing more. No retainer.</span></li>
+          </ul>
+          <figure>
+            <svg class="chart" viewBox="0 0 720 340" role="img" aria-label="Illustration: during the build, your number sits at today’s level and you pay only the base fee. After launch the number rises above today’s level, and the bonus comes only from that gain, measured at day 90.">
+              <rect class="build" x="40" y="30" width="190" height="260"/>
+              <text x="135" y="58" text-anchor="middle" class="t-strong">Build</text>
+              <text x="135" y="78" text-anchor="middle">base fee only</text>
+              <line class="axis" x1="40" y1="290" x2="700" y2="290"/>
+              <path class="gain" d="M230 210 C 330 204, 450 170, 690 92 L 690 210 Z"/>
+              <line class="base" x1="40" y1="210" x2="700" y2="210"/>
+              <text x="246" y="236">Where your number sits today</text>
+              <path class="line" pathLength="1" d="M40 212 C 100 206, 160 216, 230 210 C 330 204, 450 170, 690 92"/>
+              <text class="lbl-gain t-strong" x="676" y="176" text-anchor="end">Your gain</text>
+              <text class="lbl-gain" x="676" y="196" text-anchor="end">the bonus comes only from here</text>
+              <line class="tick" x1="230" y1="290" x2="230" y2="296"/>
+              <text x="40" y="318">Start</text>
+              <text x="230" y="318" text-anchor="middle">Launch</text>
+              <text x="690" y="318" text-anchor="end">Day 90</text>
+            </svg>
+            <figcaption class="chart-note">An illustration. Your real number and starting point come from your business.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · Close (navy). Last element. -->
+  <section id="book" data-sc-act="pin" data-sc-span="1.15" data-sc-drift="#071526">
+    <div data-sc-stage class="close" data-sc-spotlight>
+      <div class="wrap close__inner">
+        <h2 data-sc-cue="0 1 0 0">What’s the one thing you want to move this year?</h2>
+        <p data-sc-cue="0 1 0 0">Book a 30-minute call. Bring your goal, and we’ll tell you honestly whether we can help.</p>
+        <div class="btn-row" data-sc-cue="0 1 0 0" data-sc-rise="0"><a class="btn" href="https://calendly.com/max-mpwconsulting/30min" data-sc-magnet="0.22">Book a call</a><a class="btn btn--ghost" href="https://mpwconsulting.ca/contact">Send a note</a></div>
+        <span class="alt">Or write to hello@mpwconsulting.ca</span>
+      </div>
+      <footer class="foot">
+        <div class="wrap"><span>MPW Consulting · Toronto</span><nav aria-label="Footer"><a href="https://mpwconsulting.ca/about">About</a><a href="https://mpwconsulting.ca/contact">Contact</a><a href="https://mpwconsulting.ca/privacy">Privacy</a></nav></div>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="scrollcraft.js"></script>
+<script>
+  ScrollCraft.mount(document.body);
+  (function () {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+    function select(t) {
+      tabs.forEach(function (x) {
+        var on = x === t;
+        x.setAttribute('aria-selected', on ? 'true' : 'false');
+        x.tabIndex = on ? 0 : -1;
+        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+      });
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { select(t); });
+      t.addEventListener('keydown', function (e) {
+        var d = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : (e.key === 'ArrowUp' || e.key === 'ArrowLeft') ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        var n = tabs[(i + d + tabs.length) % tabs.length]; select(n); n.focus();
+      });
+    });
+  })();
+</script>
+</body>
+</html>
