@@ -1,124 +1,136 @@
 import type { Metadata } from "next";
-import { CloseBlock } from "@/components/CloseBlock";
+import Link from "next/link";
+import { BookCall } from "@/components/BookCall";
+import { Reveal } from "@/components/home/Reveal";
+import { site } from "@/lib/site";
+import "../home.css";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "MPW Consulting puts AI in service of the goal you already have. The work happens online, and on-site when it needs to.",
+    "MPW Consulting is a small AI practice for owner-run businesses. We start from the goal you already have and build what moves it.",
 };
 
-const goals = [
-  { letter: "G", name: "Growth", line: "You want more of a number you already track." },
-  { letter: "C", name: "Capacity", line: "You or the team are out of hours." },
-  { letter: "S", name: "Speed", line: "Work or decisions move too slowly for the goal." },
-  { letter: "U", name: "Unlock", line: "The business needs to do something it can’t yet." },
-  { letter: "Q", name: "Quality", line: "Errors and misses keep getting in the way." },
-];
-
-const places = [
-  { name: "Online", line: "Calls, shared screens, and the systems the business runs on." },
-  { name: "On-site", line: "Based in Toronto, and on-site when the work needs someone in the room." },
+const beliefs = [
+  {
+    tag: "The goal comes first",
+    name: "Your goal sets the work",
+    line: "We don’t sort clients by industry. We start from the thing you want to move. If the only goal is to use AI, we’re probably not the right fit.",
+  },
+  {
+    tag: "Straight answers",
+    name: "Honest about what AI can do",
+    line: "Sometimes the fix is a better process, not a new tool. If that’s the case, we’ll tell you on the first call.",
+  },
+  {
+    tag: "Built to last",
+    name: "Yours once we leave",
+    line: "It runs in your accounts, it’s documented, and your team knows how to use it. Nothing stops working when we step back.",
+  },
 ];
 
 const uses = [
   {
-    num: "01",
-    name: "Take work off someone",
-    line: "Work a person is already doing, done faster or with fewer hours.",
+    tag: "Faster",
+    name: "Work moves sooner",
+    line: "Quotes, replies and follow-ups go out in hours instead of days, so fewer customers wait or drift away.",
   },
   {
-    num: "02",
-    name: "Do work nobody could staff",
-    line: "Work that wasn’t happening because there was no one to do it.",
+    tag: "Fewer hours",
+    name: "Work comes off someone’s plate",
+    line: "Tasks you or your team already do, done with much less of your time.",
   },
   {
-    num: "03",
-    name: "Keep running after we leave",
-    line: "It lives in the business, and your team knows how it works.",
+    tag: "Newly possible",
+    name: "Work nobody had time for",
+    line: "Things that weren’t happening because there was no one free to do them.",
   },
+];
+
+const fit = [
+  {
+    name: "Who it’s for",
+    line: "Owner-run service businesses, usually three to thirty people, where the owner is still close to the work.",
+  },
+  { name: "Where we work", line: "Online, from Toronto, and on-site when the work needs someone in the room." },
+  { name: "How we’re paid", line: "A base fee that covers the build, and a bonus only if your number moves." },
 ];
 
 export default function AboutPage() {
   return (
-    <>
-      <header className="page-head page-field">
-        <div className="wrap">
-          <h1>
-            AI in service of <span className="tone">your north star.</span>
-          </h1>
-          <p>For owners and leaders who already know where they’re going.</p>
-        </div>
-      </header>
+    <div className="hm">
+      <Reveal />
 
-      <section className="lift">
+      <section className="hm-about-hero">
         <div className="wrap">
-          <ul className="goal-cards">
-            {goals.map((g) => (
-              <li key={g.name} className="goal-card">
-                <span className="goal-art" aria-hidden="true">
-                  {g.letter}
-                </span>
-                <span className="goal-body">
-                  <strong>{g.name}</strong>
-                  <span>{g.line}</span>
-                </span>
+          <span className="hm-eyebrow">About MPW Consulting</span>
+          <h1>We start with your goal, not with AI.</h1>
+          <p>
+            We’re a small practice that helps owner-run businesses put AI to work on the goals they already
+            have, then makes sure it keeps working after we leave.
+          </p>
+        </div>
+      </section>
+
+      <section className="hm-goals hm-light">
+        <div className="wrap">
+          <div className="hm-head" data-reveal>
+            <h2>What we believe</h2>
+            <p>Three things shape every project we take on.</p>
+          </div>
+          <ul className="hm-examples hm-cards">
+            {beliefs.map((b, i) => (
+              <li key={b.name} data-reveal style={{ "--i": i } as React.CSSProperties}>
+                <span className="hm-who">{b.tag}</span>
+                <h3>{b.name}</h3>
+                <p>{b.line}</p>
               </li>
             ))}
           </ul>
-
-          <div className="about-block about-who">
-            <p className="section-label">Who</p>
-            <div className="screen-split">
-              <h2>Owners and leaders who can name the goal.</h2>
-              <p className="section-copy">
-                We don’t sort clients by industry. We sort by the goal. If the only objective is to
-                use AI, we are probably the wrong firm.
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
-      <section className="screen screen-navy page-field">
-        <div className="wrap about-block">
-          <p className="section-label">Where</p>
-          <div className="screen-split">
-            <h2>The work happens online.</h2>
-            <ul className="place-row">
-              {places.map((p) => (
-                <li key={p.name}>
-                  <strong>{p.name}</strong>
-                  <span>{p.line}</span>
-                </li>
-              ))}
-            </ul>
+      <section className="hm-runs">
+        <div className="wrap">
+          <div className="hm-head" data-reveal>
+            <h2>How AI earns its place</h2>
+            <p>We only use it where it moves your goal, and it does that in one of three ways.</p>
           </div>
-        </div>
-      </section>
-
-      <section className="screen screen-paper">
-        <div className="wrap about-block">
-          <p className="section-label">How we use AI</p>
-          <div className="screen-split">
-            <h2>It has to move the objective.</h2>
-            <p className="section-copy">
-              Not AI for its own sake. It either takes work off someone or does work nobody could
-              staff — and either way, it keeps running after we leave.
-            </p>
-          </div>
-          <ol className="use-cards">
-            {uses.map((u) => (
-              <li key={u.num} className="use-card">
-                <span className="stage-label-num">{u.num}</span>
-                <strong>{u.name}</strong>
-                <p>{u.line}</p>
+          <ul className="hm-stages hm-stages-plain">
+            {uses.map((u, i) => (
+              <li key={u.name} className="hm-stage" data-reveal style={{ "--i": i } as React.CSSProperties}>
+                <div className="hm-stage-card">
+                  <span className="hm-eyebrow">{u.tag}</span>
+                  <h3>{u.name}</h3>
+                  <p>{u.line}</p>
+                </div>
               </li>
             ))}
-          </ol>
+          </ul>
+          <div className="hm-fit">
+            {fit.map((f, i) => (
+              <div key={f.name} data-reveal style={{ "--i": i } as React.CSSProperties}>
+                <h3 className="hm-eyebrow">{f.name}</h3>
+                <p>{f.line}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <CloseBlock />
-    </>
+      <section className="hm-close">
+        <div className="wrap" data-reveal>
+          <h2>Have a goal in mind?</h2>
+          <p>Book a 30-minute call. Bring the goal, and we’ll tell you honestly whether we can help.</p>
+          <div className="btn-row">
+            <BookCall className="btn btn-gold" />
+            <Link className="btn btn-ghost" href="/contact">
+              Send a note
+            </Link>
+          </div>
+          {site.email ? <p className="hm-alt">Or write to {site.email}</p> : null}
+        </div>
+      </section>
+    </div>
   );
 }
