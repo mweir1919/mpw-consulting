@@ -13,17 +13,14 @@ export const metadata: Metadata = {
 
 const beliefs = [
   {
-    tag: "The goal comes first",
     name: "Your goal sets the work",
     line: "We don’t sort clients by industry. We start from the thing you want to move. If the only goal is to use AI, we’re probably not the right fit.",
   },
   {
-    tag: "Straight answers",
     name: "Honest about what AI can do",
     line: "Sometimes the fix is a better process, not a new tool. If that’s the case, we’ll tell you on the first call.",
   },
   {
-    tag: "Built to last",
     name: "Yours once we leave",
     line: "It runs in your accounts, it’s documented, and your team knows how to use it. Nothing stops working when we step back.",
   },
@@ -81,7 +78,6 @@ export default function AboutPage() {
           <ul className="hm-examples hm-cards">
             {beliefs.map((b, i) => (
               <li key={b.name} data-reveal style={{ "--i": i } as React.CSSProperties}>
-                <span className="hm-who">{b.tag}</span>
                 <h3>{b.name}</h3>
                 <p>{b.line}</p>
               </li>
