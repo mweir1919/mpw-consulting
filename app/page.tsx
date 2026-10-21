@@ -131,7 +131,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <Pin span={1.7} className="hm-deal hm-light">
+      <Pin span={1.7} hold className="hm-deal hm-light">
         <div className="wrap">
           <div className="hm-head">
             <h2>Low cost to start. We earn more only when you do.</h2>

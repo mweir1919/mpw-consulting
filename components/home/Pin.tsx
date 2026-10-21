@@ -5,14 +5,17 @@ import { useEffect, useRef } from "react";
 // A tall section whose stage sticks while you scroll through it.
 // Sets --p (0 to 1) on the section, and fades children marked data-cue:
 // "from to" fades in at `from` and out at `to`; "from" alone fades in and holds.
+// With `hold`, progress never goes backwards, so whatever has played stays put.
 const FADE = 0.03;
 
 export function Pin({
   span,
+  hold = false,
   className,
   children,
 }: {
   span: number;
+  hold?: boolean;
   className?: string;
   children: React.ReactNode;
 }) {
@@ -35,11 +38,13 @@ export function Pin({
     };
 
     let frame = 0;
+    let reached = 0;
     const update = () => {
       frame = 0;
       const rect = el.getBoundingClientRect();
       const travel = Math.max(rect.height - (window.innerHeight - navH), 1);
-      const p = Math.min(1, Math.max(0, (navH - rect.top) / travel));
+      let p = Math.min(1, Math.max(0, (navH - rect.top) / travel));
+      if (hold) p = reached = Math.max(reached, p);
       el.style.setProperty("--p", p.toFixed(4));
       for (const c of cues) {
         const fadeIn = c.from <= 0 ? 1 : (p - c.from) / FADE;
@@ -64,7 +69,7 @@ export function Pin({
       window.removeEventListener("resize", onResize);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [hold]);
 
   return (
     <section ref={ref} className={`hm-pin ${className ?? ""}`} style={{ height: `${(span + 1) * 100}svh` }}>
