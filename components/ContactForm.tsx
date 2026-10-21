@@ -8,7 +8,7 @@ type Status =
   | { kind: "ok"; note: string }
   | { kind: "error"; note: string };
 
-const FOCUS = ["Growth", "Capacity", "Speed", "Unlock", "Quality"];
+const FOCUS = ["More customers", "Hours back", "Faster turnaround", "Fewer dropped balls", "Something new"];
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
@@ -58,7 +58,7 @@ export function ContactForm() {
       </div>
 
       <fieldset className="focus-set">
-        <legend>What matters most right now</legend>
+        <legend>What do you want to move?</legend>
         <p className="focus-hint">Pick any that apply.</p>
         <div className="focus-chips">
           {FOCUS.map((f) => (
@@ -70,7 +70,7 @@ export function ContactForm() {
         </div>
       </fieldset>
 
-      <label htmlFor="note">Where the business is headed, and what’s in the way</label>
+      <label htmlFor="note">What’s the goal, and what’s in the way?</label>
       <textarea id="note" name="note" required />
 
       <button className="btn btn-navy" type="submit" disabled={status.kind === "sending"}>
