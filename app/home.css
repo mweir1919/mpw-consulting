@@ -173,6 +173,7 @@
   font: 400 0.95rem/1 var(--font-display);
 }
 .hm-terms b { color: var(--navy); font-weight: 600; }
+.hm-terms li { text-wrap: wrap; }
 .hm-deal figure { margin: 0; }
 .hm-chart { width: 100%; height: auto; overflow: visible; display: block; }
 .hm-chart text { font-family: var(--font-sans); font-size: 15px; fill: var(--muted); }
