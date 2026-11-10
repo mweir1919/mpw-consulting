@@ -1,37 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BookCall } from "@/components/BookCall";
-import { Pin } from "@/components/home/Pin";
 import { Reveal } from "@/components/home/Reveal";
 import { GoalTabs } from "@/components/home/GoalTabs";
-import { HeroGoals } from "@/components/home/HeroGoals";
 import { site } from "@/lib/site";
 import "./home.css";
 
 export const metadata: Metadata = {
   title: { absolute: "MPW Consulting" },
   description:
-    "MPW Consulting helps owner-run businesses put AI to work on the goals they already have: more customers, hours back, faster turnaround and fewer dropped balls.",
+    "The Get Recommended Sprint from MPW Consulting. A $750 + HST first job for independent salons and studios in Toronto, typically about a week once we have access.",
 };
-
-// The hero rotates through these on a timer, in this order.
-const heroGoals = [
-  "more repeat customers.",
-  "my evenings back.",
-  "quotes out the same day.",
-  "fewer no-shows.",
-  "to stop chasing invoices.",
-];
 
 const stages = [
   {
     name: "Diagnose",
-    line: "One conversation about your goal, what you already track and where things are stuck. If AI isn’t the right tool for it, we’ll say so.",
+    line: "One conversation about your salon, your services and where your online facts are thin or don’t match. If the sprint isn’t the right work, we’ll say so.",
     tag: "One conversation",
   },
   {
     name: "Build",
-    line: "A short, fixed-scope project inside the tools you already use. You see how it works as we build it.",
+    line: "The Get Recommended Sprint, done in the tools you already use. You see the work as we do it.",
     tag: "Fixed scope",
   },
   {
@@ -44,24 +33,54 @@ const stages = [
 const fit = [
   {
     name: "Who it’s for",
-    line: "Owner-run service businesses, usually three to thirty people, where the owner is still close to the work.",
+    line: "Independent multi-chair salons in Toronto, with wax, lash and brow studios a close second.",
   },
   { name: "Where we work", line: "Online, from Toronto, and on-site when the work needs someone in the room." },
-  { name: "What we don’t sell", line: "Decks, workshops, or tools that don’t move the goal you came to us with." },
+  {
+    name: "What we don’t sell",
+    line: "Rankings, AI mentions, or a set number of bookings. We also don’t sell decks, workshops, or retainers.",
+  },
 ];
 
-const terms = [
+const sprintIncludes = [
   {
-    name: "A base fee that covers our costs",
-    line: "It pays for the build itself, not our margin, so getting started stays affordable.",
+    name: "An audit",
+    line: "How Google and AI tools answer for your services and area today.",
   },
   {
-    name: "A bonus only if your number moves",
-    line: "Before we start, we agree on one number, where it sits today, and when we’ll measure it again.",
+    name: "A complete Google Business Profile",
+    line: "Categories, services, hours, photos, description and booking link.",
   },
   {
-    name: "Most of the risk is ours",
-    line: "If the number goes up, we share in the gain. If it doesn’t, you’ve paid the base fee and nothing more. No retainer.",
+    name: "Two service pages",
+    line: "For the two services you most want to sell, each with a booking link.",
+  },
+  {
+    name: "A direct booking link",
+    line: "One that opens the right appointment.",
+  },
+  {
+    name: "The same facts everywhere",
+    line: "One name, address, hours and service list across your site, Google and the main listings.",
+  },
+  {
+    name: "A handoff",
+    line: "A short walkthrough and a one-page checklist your team can follow.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Will Google or ChatGPT start recommending my salon?",
+    a: "No. Nobody controls those answers, and they change. We fix the sources they draw from: your Google profile, your pages and your listings. We do not promise rankings, mentions or a set number of bookings.",
+  },
+  {
+    q: "How long does it take?",
+    a: "Typically about a week once we have access to your Google profile, website and booking link. We do not set a fixed end date, because access and your replies affect the timing.",
+  },
+  {
+    q: "Do I have to buy more after the sprint?",
+    a: "No. The sprint is a one-time job. If you want more later, full builds start from $2,500, and we only offer that after the sprint is done.",
   },
 ];
 
@@ -73,12 +92,9 @@ export default function HomePage() {
       <section className="hm-hero">
         <div className="hm-hero-stage">
           <div className="wrap">
-            <h1>
-              This year I want
-              <HeroGoals goals={heroGoals} />
-            </h1>
-            <p className="hm-hero-sub">Name yours. We’ll build what moves it.</p>
-            <p className="hm-hero-note">We help owner-run businesses put AI to work on the goals they already have.</p>
+            <h1>When someone nearby asks Google or ChatGPT for a salon, they should be able to find the facts about yours.</h1>
+            <p className="hm-hero-sub">We help independent salons and studios in Toronto get their Google profile, service pages and booking link in order.</p>
+            <p className="hm-hero-note">We do not promise that Google or ChatGPT will name you. We put the facts about you in one consistent place.</p>
             <div className="btn-row">
               <BookCall className="btn btn-gold" />
               <Link className="btn btn-ghost" href="/contact">
@@ -93,11 +109,11 @@ export default function HomePage() {
         <div className="wrap">
           <div className="hm-head" data-reveal>
             <h2>Start with the goal, not the tool.</h2>
-            <p>Most owners we talk to want one of these five things. Pick one to see what the work could look like.</p>
+            <p>Most salon and studio owners we talk to want one of these. Pick one to see what the work could look like.</p>
           </div>
           <GoalTabs />
           <p className="hm-goals-foot">
-            These are examples, not packages. What we build for you starts from your goal and your numbers.
+            These are examples, not packages. They are not a promise of bookings, rankings or a set result.
           </p>
         </div>
       </section>
@@ -131,53 +147,42 @@ export default function HomePage() {
         </div>
       </section>
 
-      <Pin span={1.7} hold className="hm-deal hm-light">
+      <section className="hm-deal hm-light">
         <div className="wrap">
-          <div className="hm-head">
-            <h2>Low cost to start. We earn more only when you do.</h2>
+          <div className="hm-head" data-reveal>
+            <h2>The Get Recommended Sprint</h2>
+            <p>A fixed first job for independent salons and studios in Toronto. One flat fee, no retainer, and no monthly plan.</p>
           </div>
-          <div className="hm-deal-grid">
-            <ol className="hm-terms">
-              {terms.map((t, i) => (
-                <li key={t.name}>
-                  <span className="hm-term-num">{i + 1}</span>
-                  <b>{t.name}</b>
-                  <span>{t.line}</span>
-                </li>
-              ))}
-            </ol>
-            <figure>
-              <svg
-                className="hm-chart"
-                viewBox="0 0 720 340"
-                role="img"
-                aria-label="Illustration: during the build, your number sits at today’s level and you pay only the base fee. After launch the number rises above today’s level, and the bonus comes only from that gain, measured at the point we agree on."
-              >
-                <rect className="build" x="40" y="210" width="190" height="80" />
-                <text x="135" y="244" textAnchor="middle" className="strong">Build</text>
-                <text x="135" y="264" textAnchor="middle">base fee only</text>
-                <line className="axis" x1="40" y1="290" x2="700" y2="290" />
-                <path className="gain" d="M230 210 C 330 204, 450 170, 690 92 L 690 210 Z" />
-                <line className="base" x1="40" y1="210" x2="700" y2="210" />
-                <text x="246" y="236">Where your number sits today</text>
-                <path className="line" pathLength={1} d="M40 212 C 100 206, 160 216, 230 210 C 330 204, 450 170, 690 92" />
-                <text className="lbl-gain strong" x="676" y="176" textAnchor="end">Your gain</text>
-                <text className="lbl-gain" x="676" y="196" textAnchor="end">the bonus comes only from here</text>
-                <line className="axis" x1="230" y1="290" x2="230" y2="296" />
-                <text x="40" y="318">Start</text>
-                <text x="230" y="318" textAnchor="middle">Launch</text>
-                <text x="690" y="318" textAnchor="end">Measured</text>
-              </svg>
-              <figcaption>An illustration. Your real number and starting point come from your business.</figcaption>
-            </figure>
-          </div>
+          <ol className="hm-terms">
+            {sprintIncludes.map((item, i) => (
+              <li key={item.name}>
+                <span className="hm-term-num">{i + 1}</span>
+                <b>{item.name}</b>
+                <span>{item.line}</span>
+              </li>
+            ))}
+          </ol>
+          <p className="hm-sprint-price" data-reveal>
+            <b>$750 + HST</b>, paid in full up front. Typically about a week once we have access.
+          </p>
+          <ul className="hm-examples hm-cards">
+            {faqs.map((item, i) => (
+              <li key={item.q} data-reveal style={{ "--i": i } as React.CSSProperties}>
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </li>
+            ))}
+          </ul>
         </div>
-      </Pin>
+      </section>
 
       <section className="hm-close">
         <div className="wrap" data-reveal>
-          <h2>What’s the one thing you want to move this year?</h2>
-          <p>Book a 30-minute call. Bring your goal, and we’ll tell you honestly whether we can help.</p>
+          <h2>What happens next</h2>
+          <p>
+            Book a 30-minute call and we’ll tell you if the sprint is a fit. If you want to go further after the
+            sprint, full builds start from $2,500. We only offer a full build once a sprint is done.
+          </p>
           <div className="btn-row">
             <BookCall className="btn btn-gold" />
             <Link className="btn btn-ghost" href="/contact">

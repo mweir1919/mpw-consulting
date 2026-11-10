@@ -7,12 +7,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [{ source: "/approach", destination: "/", permanent: true }];
   },
-  async rewrites() {
-    return [
-      { source: "/calculator", destination: "/calculator.html" },
-      { source: "/report", destination: "/MPW-Consulting-Home-Services.pdf" },
-    ];
-  },
+  // /calculator and /report rewrites removed in the offer-copy draft.
+  // The underlying public files are left in place until Max decides to delete them.
 };
 
 export default nextConfig;

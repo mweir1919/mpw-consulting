@@ -7,13 +7,13 @@ import "../home.css";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Book a 30-minute call, or send a note about the goal you want to move.",
+  description: "Book a 30-minute call about the Get Recommended Sprint, or send a note.",
 };
 
 const covers = [
   { name: "Your goal", line: "What you want to move this year, and what’s getting in the way." },
-  { name: "Whether AI fits", line: "If it isn’t the right tool for the job, we’ll tell you." },
-  { name: "A first step", line: "What a first project could look like, if there’s one worth doing." },
+  { name: "Whether the sprint fits", line: "If it isn’t the right work, we’ll tell you." },
+  { name: "A first step", line: "What the Get Recommended Sprint would cover for you, if it’s a fit." },
 ];
 
 export default function ContactPage() {
@@ -28,36 +28,41 @@ export default function ContactPage() {
       </section>
 
       <section className="hm-light hm-contact">
-        <div className="wrap hm-contact-grid">
-          <div className="hm-contact-card hm-contact-call">
-            <h2>Book a call</h2>
-            <p className="hm-card-lead">A 30-minute conversation. Here’s what we’ll cover.</p>
-            <ol className="hm-cover">
-              {covers.map((c) => (
-                <li key={c.name}>
-                  <h3>{c.name}</h3>
-                  <p>{c.line}</p>
-                </li>
-              ))}
-            </ol>
-            <div className="btn-row">
-              <BookCall className="btn btn-gold" />
+        <div className="wrap">
+          <div className="hm-contact-grid">
+            <div className="hm-contact-card hm-contact-call">
+              <h2>Book a call</h2>
+              <p className="hm-card-lead">A 30-minute conversation. Here’s what we’ll cover.</p>
+              <ol className="hm-cover">
+                {covers.map((c) => (
+                  <li key={c.name}>
+                    <h3>{c.name}</h3>
+                    <p>{c.line}</p>
+                  </li>
+                ))}
+              </ol>
+              <div className="btn-row">
+                <BookCall className="btn btn-gold" />
+              </div>
+              {site.email ? (
+                <p className="hm-contact-mail">
+                  Or write directly: <a href={`mailto:${site.email}`}>{site.email}</a>
+                </p>
+              ) : null}
             </div>
-            {site.email ? (
-              <p className="hm-contact-mail">
-                Or write directly: <a href={`mailto:${site.email}`}>{site.email}</a>
-              </p>
-            ) : null}
-          </div>
 
-          <div className="hm-contact-card hm-contact-note">
-            <h2>Send a note</h2>
-            <p className="hm-card-lead">Tell us a little about the business. We’ll reply by email.</p>
-            <ContactForm />
-            <p className="form-fine">
-              We use this to reply. Nothing else. <Link href="/privacy">Privacy</Link>
-            </p>
+            <div className="hm-contact-card hm-contact-note">
+              <h2>Send a note</h2>
+              <p className="hm-card-lead">Tell us a little about the business. We’ll reply by email.</p>
+              <ContactForm />
+              <p className="form-fine">
+                We use this to reply. Nothing else. <Link href="/privacy">Privacy</Link>
+              </p>
+            </div>
           </div>
+          <p className="hm-contact-refer">
+            If you send us a client who hires us, we pay you 15% of their first paid job.
+          </p>
         </div>
       </section>
     </div>
