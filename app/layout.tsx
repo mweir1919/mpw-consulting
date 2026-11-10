@@ -17,7 +17,7 @@ const sans = Public_Sans({
 });
 
 const description =
-  "MPW Consulting helps owners and leaders learn about and implement AI toward their objectives — faster, with fewer hours, or in ways that weren’t possible before.";
+  "MPW Consulting helps independent salons and studios in Toronto get their Google profile, service pages and booking link in order.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mpwconsulting.ca"),

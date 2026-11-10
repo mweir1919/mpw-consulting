@@ -53,7 +53,7 @@
   mix-blend-mode: overlay;
 }
 .hm-hero .wrap { position: relative; z-index: 1; }
-.hm-hero h1 { font-size: clamp(2.4rem, 1.3rem + 4.4vw, 5.4rem); line-height: 1.04; letter-spacing: -0.025em; max-width: none; }
+.hm-hero h1 { font-size: clamp(2.4rem, 1.3rem + 4.4vw, 5.4rem); line-height: 1.04; letter-spacing: -0.025em; max-width: 20ch; text-wrap: balance; }
 .hm-goal-slot { display: grid; min-height: 2.15em; }
 .hm-goal-slot > span {
   grid-area: 1 / 1;
@@ -156,10 +156,15 @@
 .hm-fit h3 { margin: 0; }
 .hm-fit p { margin: 0.75rem auto 0; line-height: 1.6; max-width: 32ch; color: var(--hm-ink-soft); }
 
-/* 4 · the deal (light): the line draws as you scroll */
-.hm-deal .wrap { padding-block: 1rem; }
+/* 4 · the sprint (light). The pinned chart is gone, so this band uses the same padding as the other sections. */
+.hm-deal { padding-block: clamp(4.5rem, 11vh, 7.5rem); }
+.hm-deal .wrap { padding-block: 0; }
 .hm-deal-grid { display: grid; grid-template-columns: minmax(0, 23rem) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; margin-top: clamp(1.75rem, 4.5vh, 2.75rem); }
 .hm-terms { list-style: none; display: grid; gap: 1.35rem; }
+.hm-deal .hm-terms { margin-top: clamp(2rem, 5vh, 2.75rem); grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.35rem clamp(1.5rem, 3vw, 2.5rem); }
+.hm-sprint-price { margin-top: clamp(2.25rem, 5vh, 3rem) !important; text-align: center; color: var(--navy); font-family: var(--font-display); font-size: clamp(1.35rem, 1.15rem + 0.6vw, 1.85rem); line-height: 1.35; }
+.hm-sprint-price b { font-weight: 700; }
+.hm-deal .hm-cards { margin-top: clamp(2.5rem, 6vh, 3.5rem); }
 .hm-terms li { display: grid; grid-template-columns: 2rem 1fr; column-gap: 0.85rem; line-height: 1.55; color: var(--muted); }
 .hm-term-num {
   grid-row: span 2;
@@ -247,6 +252,7 @@
 .hm-contact-mail a { color: var(--gold); }
 .hm-contact-mail a:hover { color: var(--paper); }
 .hm-contact .form-fine { margin-top: 1rem; }
+.hm .hm-contact-refer { margin: clamp(1.75rem, 4vh, 2.5rem) auto 0; max-width: 46ch; text-align: center; color: var(--muted); line-height: 1.6; font-size: var(--t-body); }
 
 /* compact note form, so both contact cards are the same height */
 .hm-contact .contact-form { display: grid; grid-template-columns: 1fr 1fr; column-gap: 0.9rem; align-content: start; }
@@ -298,8 +304,7 @@
   .hm-deal { height: auto !important; --p: 1 !important; }
   .hm-deal .hm-pin-stage { position: static; height: auto; padding-block: 1rem 4rem; }
   .hm-deal-grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 1rem; }
-  .hm-deal .hm-head h2 { font-size: 1.6rem; }
-  .hm-terms { gap: 0.7rem; font-size: 0.9rem; }
+  .hm-deal .hm-terms { grid-template-columns: 1fr; gap: 0.7rem; font-size: 0.9rem; }
   .hm-chart text { font-size: 30px; }
   .hm-chart .lbl-gain:not(.strong), .hm-chart .build + text + text { display: none; }
 }

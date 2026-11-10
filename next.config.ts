@@ -7,12 +7,6 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [{ source: "/approach", destination: "/", permanent: true }];
   },
-  async rewrites() {
-    return [
-      { source: "/calculator", destination: "/calculator.html" },
-      { source: "/report", destination: "/MPW-Consulting-Home-Services.pdf" },
-    ];
-  },
 };
 
 export default nextConfig;
