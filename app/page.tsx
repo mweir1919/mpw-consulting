@@ -94,7 +94,7 @@ export default function HomePage() {
           <div className="wrap">
             <h1>When someone nearby asks Google or ChatGPT for a salon, they should be able to find the facts about yours.</h1>
             <p className="hm-hero-sub">We help independent salons and studios in Toronto get their Google profile, service pages and booking link in order.</p>
-            <p className="hm-hero-note">We do not promise that Google or ChatGPT will name you. We put the facts about you in one consistent place.</p>
+            <p className="hm-hero-note">We do not promise that Google or ChatGPT will name you. We make sure the facts about you match everywhere.</p>
             <div className="btn-row">
               <BookCall className="btn btn-gold" />
               <Link className="btn btn-ghost" href="/contact">
