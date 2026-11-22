@@ -73,6 +73,8 @@
 
 /* 2 · goals (light) */
 .hm-goals { padding-block: clamp(4.5rem, 11vh, 7.5rem); }
+.hm-case { padding-block: clamp(3.5rem, 9vh, 6rem); border-top: 1px solid var(--line, rgba(0,0,0,.08)); }
+.hm-measure + .hm-measure { margin-top: 0.6rem !important; }
 .hm-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: clamp(2rem, 5vh, 2.75rem); }
 .hm-tab {
   appearance: none;

@@ -66,8 +66,8 @@ export default function AboutPage() {
           <span className="hm-eyebrow">About MPW Consulting</span>
           <h1>We start with your goal, not with AI.</h1>
           <p>
-            We’re a small practice that helps owner-run businesses put AI to work on the goals they already
-            have, then makes sure it keeps working after we leave.
+            We’re a small practice that helps owner-run businesses use AI to bring in more revenue from the
+            customers they already have, then makes sure it keeps working after we leave.
           </p>
         </div>
       </section>

@@ -4,54 +4,40 @@ import { useRef, useState } from "react";
 
 const goals = [
   {
-    id: "growth",
-    label: "More customers",
+    id: "winback",
+    label: "Bring back lapsed clients",
     examples: [
-      ["Salon or studio", "Clients who are overdue for a visit get a personal note with a link to book."],
-      ["Landscaping", "Every quote gets a follow-up on day two, five and ten, so none go cold."],
-      ["Cleaning company", "Happy clients are asked for a review the day after a clean, while it’s fresh."],
+      ["Salon or studio", "Clients who have gone quiet get a note that mentions their last service and a time that usually suits them."],
+      ["Clinic", "Patients who stopped partway through a treatment plan hear from you before they forget why they started."],
+      ["Home services", "Last year’s customers hear about this season’s work around the time they booked last year."],
     ],
-    measure: "new and returning customers, bookings and quotes won.",
+    beyond:
+      "Most booking apps send the same “we miss you” message to everyone. This works out who is actually overdue, writes to each person, and stops the moment they book.",
+    measure: "lapsed clients who come back, and what they spend.",
   },
   {
-    id: "hours",
-    label: "Hours back",
+    id: "quiet",
+    label: "Fill quiet hours",
     examples: [
-      ["Bookkeeping office", "Client documents are requested, renamed and filed without anyone chasing them."],
-      ["Trades", "Invoices are drafted from the job notes, ready for you to check and send."],
-      ["Studio", "Reschedules happen by text instead of phone tag."],
+      ["Studio or gym", "Your slowest hours are offered first to the regulars most likely to take them."],
+      ["Clinic", "A cancellation for tomorrow morning goes to the people who can actually come, within the hour."],
+      ["Any appointment business", "AI suggests an off-peak price for your quietest slots. You approve it, and everyone sees the same price."],
     ],
-    measure: "hours a week that you, or someone on your team, no longer spend on it.",
+    beyond:
+      "It reads your own booking history to find which hours sit empty and who has booked them before, so the offer goes to the right people instead of your whole list.",
+    measure: "booked hours in your quietest times, before and after.",
   },
   {
-    id: "speed",
-    label: "Faster turnaround",
+    id: "repeat",
+    label: "Grow repeat visits",
     examples: [
-      ["Contractor", "Quotes go out the same day, built from a site visit and a few photos."],
-      ["Agency or office", "New clients get set up through one form instead of six emails."],
-      ["Salon or studio", "A cancelled appointment is offered to the waitlist within the hour."],
+      ["Salon or clinic", "Each client is asked to rebook at the right interval for their service, not a generic six weeks."],
+      ["Any first visit", "New clients get a follow-up that makes the second visit easy to book."],
+      ["Service with add-ons", "Clients likely to want an add-on hear about it, and only those clients."],
     ],
-    measure: "the time from request to done.",
-  },
-  {
-    id: "quality",
-    label: "Fewer dropped balls",
-    examples: [
-      ["Trades", "Every job ends with the same checklist, so fewer crews get called back."],
-      ["Studio", "Reminders that clients actually reply to, so more of them show up."],
-      ["Any front desk", "Every inquiry gets an owner and a next step, so nothing sits in an inbox."],
-    ],
-    measure: "no-shows, missed follow-ups and rework, using whatever you already track.",
-  },
-  {
-    id: "unlock",
-    label: "Something new",
-    examples: [
-      ["Landscaping", "A spring note to every past client that reads like you wrote each one yourself."],
-      ["Studio", "Booking questions answered after hours, in your own words."],
-      ["Any local business", "Your services and prices laid out so Google and AI assistants can recommend you."],
-    ],
-    measure: "what exists now that didn’t before, and what it brings in.",
+    beyond:
+      "Every message is timed and written for the person getting it, based on what they bought and how often they come in.",
+    measure: "how many first-time clients come back, and how often regulars visit.",
   },
 ];
 
@@ -100,6 +86,9 @@ export function GoalTabs() {
               </li>
             ))}
           </ul>
+          <p className="hm-measure">
+            <b>Beyond your booking app:</b> {g.beyond}
+          </p>
           <p className="hm-measure">
             <b>How we’d measure it:</b> {g.measure}
           </p>
