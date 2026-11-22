@@ -11,17 +11,20 @@ import "./home.css";
 export const metadata: Metadata = {
   title: { absolute: "MPW Consulting" },
   description:
-    "MPW Consulting helps owner-run businesses put AI to work on the goals they already have: more customers, hours back, faster turnaround and fewer dropped balls.",
+    "MPW Consulting uses AI to bring in more revenue from the customers you already have: win back lapsed clients, fill quiet hours and grow repeat visits.",
 };
 
 // The hero rotates through these on a timer, in this order.
 const heroGoals = [
-  "more repeat customers.",
-  "my evenings back.",
-  "quotes out the same day.",
-  "fewer no-shows.",
-  "to stop chasing invoices.",
+  "my lapsed clients back.",
+  "my quiet hours full.",
+  "more clients rebooking.",
+  "more from the customers I have.",
 ];
+
+// Fill this in once a client result is measured. Until then the section
+// doesn't render. Only real, agreed numbers go here.
+const caseStudy: { client: string; outcome: string; detail: string } | null = null;
 
 const stages = [
   {
@@ -56,8 +59,8 @@ const terms = [
     line: "It pays for the build itself, not our margin, so getting started stays affordable.",
   },
   {
-    name: "A bonus only if your number moves",
-    line: "Before we start, we agree on one number, where it sits today, and when we’ll measure it again.",
+    name: "A bonus only if your revenue moves",
+    line: "Before we start, we agree on one revenue number, where it sits today, and when we’ll measure it again.",
   },
   {
     name: "Most of the risk is ours",
@@ -77,8 +80,8 @@ export default function HomePage() {
               This year I want
               <HeroGoals goals={heroGoals} />
             </h1>
-            <p className="hm-hero-sub">Name yours. We’ll build what moves it.</p>
-            <p className="hm-hero-note">We help owner-run businesses put AI to work on the goals they already have.</p>
+            <p className="hm-hero-sub">We use AI to bring in more revenue from the customers you already have.</p>
+            <p className="hm-hero-note">Win back lapsed clients, fill quiet hours and grow repeat visits, inside the tools you already use.</p>
             <div className="btn-row">
               <BookCall className="btn btn-gold" />
               <Link className="btn btn-ghost" href="/contact">
@@ -92,15 +95,27 @@ export default function HomePage() {
       <section className="hm-goals hm-light">
         <div className="wrap">
           <div className="hm-head" data-reveal>
-            <h2>Start with the goal, not the tool.</h2>
-            <p>Most owners we talk to want one of these five things. Pick one to see what the work could look like.</p>
+            <h2>Three ways to grow revenue from customers you already have.</h2>
+            <p>Your next sale is usually someone who has bought from you before. Pick one to see what the work could look like.</p>
           </div>
           <GoalTabs />
           <p className="hm-goals-foot">
-            These are examples, not packages. What we build for you starts from your goal and your numbers.
+            These are examples, not packages. What we build for you starts from your customers and your numbers.
           </p>
         </div>
       </section>
+
+      {caseStudy ? (
+        <section className="hm-case hm-light">
+          <div className="wrap">
+            <div className="hm-head" data-reveal>
+              <span className="hm-eyebrow">{caseStudy.client}</span>
+              <h2>{caseStudy.outcome}</h2>
+              <p>{caseStudy.detail}</p>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="hm-runs">
         <div className="wrap">
@@ -176,8 +191,8 @@ export default function HomePage() {
 
       <section className="hm-close">
         <div className="wrap" data-reveal>
-          <h2>What’s the one thing you want to move this year?</h2>
-          <p>Book a 30-minute call. Bring your goal, and we’ll tell you honestly whether we can help.</p>
+          <h2>Where is revenue slipping away from you?</h2>
+          <p>Book a 30-minute call. Tell us about your customers, and we’ll tell you honestly whether we can help.</p>
           <div className="btn-row">
             <BookCall className="btn btn-gold" />
             <Link className="btn btn-ghost" href="/contact">

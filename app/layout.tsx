@@ -17,7 +17,7 @@ const sans = Public_Sans({
 });
 
 const description =
-  "MPW Consulting helps owners and leaders learn about and implement AI toward their objectives — faster, with fewer hours, or in ways that weren’t possible before.";
+  "MPW Consulting uses AI to bring in more revenue from the customers you already have: win back lapsed clients, fill quiet hours and grow repeat visits.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mpwconsulting.ca"),
